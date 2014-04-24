@@ -146,6 +146,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
         _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(_displayLinkCallback:)];
         _displayLink.paused = YES;
+        _displayLink.frameInterval = 10;
         [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     }
     return self;
@@ -267,7 +268,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 - (void)_startTutorial:(_FLWTutorial *)tutorial
 {
-    NSLog(@"starting %@", tutorial);
+    self.displayLink.frameInterval = 1;
     
     NSParameterAssert(self.activeTutorial == nil);
     self.activeTutorial = tutorial;
@@ -306,14 +307,15 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 - (void)_finishActiveTutorialWithSuccess:(BOOL)success
 {
-    NSLog(@"finishing %@", self.activeTutorial);
-
     self.activeTutorial.isTransitioningToFinish = YES;
     self.overlayView.progress = success ? 1.0 : 0.0;
 
     if (success && self.activeTutorial.successMessage) {
         self.overlayView.textLabel.text = self.activeTutorial.successMessage;
-        [self _readTutorialText:self.activeTutorial.successMessage];
+
+        if (!self.activeTutorial.speechSynthesisesDisabled) {
+            [self _readTutorialText:self.activeTutorial.successMessage];
+        }
     }
 
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn;
@@ -335,6 +337,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
             [self.gestureView removeFromSuperview];
             self.gestureView = nil;
 
+            self.displayLink.frameInterval = 10;
             [self _numberOfTutorialsChanged];
         }];
     }];

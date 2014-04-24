@@ -27,7 +27,6 @@
 #import "FLWTouchGesture.h"
 
 #warning nice fade out transition for userinteraction or dismissal
-#warning adjust framerate to 10 when waiting for tutorial to kick in and 1 when tutorial finished
 
 typedef BOOL(^SPLBlockPredicate)(void);
 
