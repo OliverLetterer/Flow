@@ -21,7 +21,7 @@ pod "Flow"
 
 ```objc
 [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:identifier afterDelay:0.5 withPredicate:^BOOL{
-  // return NO if you are net yet ready to start this tutorial.
+  // return NO if you are not ready to start this tutorial yet.
   return YES;
 } constructionBlock:^(id<FLWTutorial> tutorial) {
   tutorial.title = ...; // assign tutorials title
