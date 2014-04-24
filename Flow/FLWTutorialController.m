@@ -90,8 +90,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     tutorial.predicate = predicate;
     tutorial.remainingDuration = delay;
     tutorial.state = FLWTutorialStateScheduled;
-
-    constructionBlock(tutorial);
+    tutorial.constructionBlock = constructionBlock;
 
     [self.scheduledTutorials addObject:tutorial];
     [self _numberOfTutorialsChanged];
@@ -254,6 +253,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.activeTutorial.state = FLWTutorialStateRunning;
     self.activeTutorial.isTransitioningToFinish = NO;
     self.activeTutorial.isTransitioningToRunning = YES;
+    self.activeTutorial.constructionBlock(self.activeTutorial);
 
     UIView *containerView = self.window.rootViewController.view;
     static CGFloat additionalHeight = 50.0;

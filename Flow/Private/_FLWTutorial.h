@@ -53,6 +53,7 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 @property (nonatomic, assign) NSTimeInterval remainingDuration;
 
 @property (nonatomic, copy) SPLBlockPredicate predicate;
+@property (nonatomic, copy) void(^constructionBlock)(id<FLWTutorial> tutorial);
 @property (nonatomic, readonly) NSArray *gestures;
 
 @end
