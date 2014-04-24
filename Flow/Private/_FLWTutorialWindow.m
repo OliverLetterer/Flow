@@ -29,6 +29,44 @@
 
 
 
+@interface _FLWWindowRootViewController : UIViewController
+
+@end
+
+@implementation _FLWWindowRootViewController
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    while (rootViewController.presentedViewController) {
+        rootViewController = rootViewController.presentedViewController;
+    }
+
+    return rootViewController.supportedInterfaceOrientations;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    while (rootViewController.presentedViewController) {
+        UIViewController *nextViewController = rootViewController.presentedViewController;
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            BOOL viewControllerDefinesStatusBarStyle = nextViewController.modalPresentationStyle == UIModalPresentationFullScreen || nextViewController.modalPresentationStyle == UIModalPresentationCustom;
+            if (!viewControllerDefinesStatusBarStyle) {
+                break;
+            }
+        }
+
+        rootViewController = nextViewController;
+    }
+
+    return rootViewController.preferredStatusBarStyle;
+}
+
+@end
+
+
 @interface _FLWTutorialWindow ()
 
 @end
@@ -45,7 +83,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.windowLevel = UIWindowLevelAlert;
 
-        self.rootViewController = [[UIViewController alloc] init];
+        self.rootViewController = [[_FLWWindowRootViewController alloc] init];
         self.rootViewController.view.backgroundColor = [UIColor clearColor];
 
         UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
