@@ -292,7 +292,9 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.overlayView.progress = tutorial.progress;
     [containerView addSubview:self.overlayView];
 
-    self.gestureView = [self.activeTutorial.gesture respondsToSelector:@selector(gestureViewClass)] ? [[self.activeTutorial.gesture.gestureViewClass alloc] initWithFrame:CGRectZero] : [[_FLWTutorialTouchIndicatorView alloc] initWithFrame:CGRectZero];
+    if (self.activeTutorial.gesture) {
+        self.gestureView = [self.activeTutorial.gesture respondsToSelector:@selector(gestureViewClass)] ? [[self.activeTutorial.gesture.gestureViewClass alloc] initWithFrame:CGRectZero] : [[_FLWTutorialTouchIndicatorView alloc] initWithFrame:CGRectZero];
+    }
     [self.gestureView sizeToFit];
     [containerView addSubview:self.gestureView];
 
