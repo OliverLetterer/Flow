@@ -26,6 +26,8 @@
 
 #import "_FLWTutorialOverlayView.h"
 
+static CGFloat crossFadeThreshold = 0.25;
+
 @interface _FLWTutorialOverlayViewProgressControl : UIControl
 
 @property (nonatomic, assign) CGFloat progress;
@@ -55,7 +57,7 @@
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    return self.progress > 0.0 ? NO : [super beginTrackingWithTouch:touch withEvent:event];
+    return self.progress > crossFadeThreshold ? NO : [super beginTrackingWithTouch:touch withEvent:event];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -64,7 +66,9 @@
 
     [[UIColor whiteColor] setFill];
 
-    if (self.progress <= 0.0) {
+    if (self.progress <= crossFadeThreshold) {
+        [[UIColor colorWithWhite:1.0 alpha:1.0 - self.progress / crossFadeThreshold] setFill];
+
         UIImage *image = [[UIImage imageNamed:@"FLWProgressViewClose"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [image drawInRect:CGRectMake(centerPoint.x - image.size.width / 2.0,
                                      centerPoint.y - image.size.height / 2.0,
