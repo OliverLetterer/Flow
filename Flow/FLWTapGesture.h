@@ -1,6 +1,6 @@
 //
 //  FLWTapGesture.h
-//  Guia
+//  Flow
 //
 //  The MIT License (MIT)
 //  Copyright (c) 2014 Oliver Letterer, Sparrow-Labs
