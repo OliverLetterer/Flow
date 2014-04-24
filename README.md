@@ -17,7 +17,7 @@ pod "Flow"
 
 ## Usage
 
-### scheduling a new tutorial
+### Scheduling a new tutorial
 
 ```objc
 [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:identifier afterDelay:0.5 withPredicate:^BOOL{
