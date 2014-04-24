@@ -161,8 +161,6 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 - (BOOL)_hasCompletedTutorialWithIdentifier:(NSString *)identifier
 {
-#warning here
-    return NO;
     return [[NSUserDefaults standardUserDefaults] boolForKey:globalIdentifierForIdentifier(identifier)];
 }
 
