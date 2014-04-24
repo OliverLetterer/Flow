@@ -6,7 +6,7 @@
 //  Copyright 2014 Sparrowlabs. All rights reserved.
 //
 
-#import "FLWTutorialTouchGesture.h"
+#import "FLWTouchGesture.h"
 
 #import "FLWTutorialController.h"
 #import "FLWTapGesture.h"

@@ -54,7 +54,7 @@ static inline BOOL _SPLIntervalContainsFrame(_SPLInterval interval, CGFloat fram
     return self;
 }
 
-#pragma mark - FLWTutorialTouchGesture
+#pragma mark - FLWTouchGesture
 
 - (void)setProgress:(CGFloat)progress onView:(UIView *)view
 {

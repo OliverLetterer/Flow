@@ -61,17 +61,17 @@
     return self;
 }
 
-#pragma mark - FLWTutorialTouchGesture
+#pragma mark - FLWTouchGesture
 
 - (void)setProgress:(CGFloat)progress onView:(UIView *)view
 {
     _progress = progress;
 
-    id<FLWTutorialTouchGesture> interpolatingGesture = self.gestures.lastObject;
+    id<FLWTouchGesture> interpolatingGesture = self.gestures.lastObject;
 
     CGFloat totalDuration = self.duration;
     NSTimeInterval currentTimeOffset = 0.0;
-    for (id<FLWTutorialTouchGesture> thisGesture in self.gestures) {
+    for (id<FLWTouchGesture> thisGesture in self.gestures) {
         CGFloat thisGesturesMaxmimumProgress = (currentTimeOffset + thisGesture.duration) / totalDuration;
 
         if (progress <= thisGesturesMaxmimumProgress) {

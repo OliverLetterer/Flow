@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "FLWTutorialTouchGesture.h"
+#import "FLWTouchGesture.h"
 
 typedef BOOL(^SPLBlockPredicate)(void);
 
@@ -33,7 +33,7 @@ typedef BOOL(^SPLBlockPredicate)(void);
 @protocol FLWTutorial <NSObject>
 
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, strong) id<FLWTutorialTouchGesture> gesture;
+@property (nonatomic, strong) id<FLWTouchGesture> gesture;
 
 @end
 

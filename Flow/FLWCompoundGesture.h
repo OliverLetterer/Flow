@@ -24,14 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import "FLWTutorialTouchGesture.h"
+#import "FLWTouchGesture.h"
 
 
 
 /**
  @abstract  <#abstract comment#>
  */
-@interface FLWCompoundGesture : NSObject <FLWTutorialTouchGesture>
+@interface FLWCompoundGesture : NSObject <FLWTouchGesture>
 
 @property (nonatomic, readonly) NSArray *gestures;
 

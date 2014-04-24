@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
   spec.frameworks   = 'Foundation', 'UIKit'
   spec.requires_arc = true
   spec.homepage     = 'https://github.com/OliverLetterer/Flow'
-  spec.summary      = 'Tutorial framework inspired by Facebook Paper.'
+  spec.summary      = 'Gesture based tutorials inspired by Facebook Paper.'
   spec.author       = { 'Oliver Letterer' => 'oliver.letterer@gmail.com' }
   spec.source_files = 'Flow/*.{h,m}', 'Flow/**/*.{h,m}'
   spec.resources    = "Resources/*.png"

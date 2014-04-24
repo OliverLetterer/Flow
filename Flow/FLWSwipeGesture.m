@@ -73,7 +73,7 @@ static CGPoint interpolatedPointBetweenPoints(CGPoint startPoint, CGPoint endPoi
     return self;
 }
 
-#pragma mark - FLWTutorialTouchGesture
+#pragma mark - FLWTouchGesture
 
 - (void)setProgress:(CGFloat)progress onView:(UIView *)view
 {

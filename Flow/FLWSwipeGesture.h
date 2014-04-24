@@ -24,14 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import "FLWTutorialTouchGesture.h"
+#import "FLWTouchGesture.h"
 
 
 
 /**
  @abstract  <#abstract comment#>
  */
-@interface FLWSwipeGesture : NSObject <FLWTutorialTouchGesture>
+@interface FLWSwipeGesture : NSObject <FLWTouchGesture>
 
 @property (nonatomic, readonly) CGPoint startPoint;
 @property (nonatomic, readonly) CGPoint endPoint;
