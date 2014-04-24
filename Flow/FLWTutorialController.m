@@ -224,10 +224,6 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 - (void)_checkForNextTutorial
 {
     for (_FLWTutorial *tutorial in self.scheduledTutorials) {
-        if (![self _tutorialSatisfiesDependentTutorialIdentifiers:tutorial]) {
-            continue;
-        }
-
         if (tutorial.canStartTutorial) {
             [self _startTutorial:tutorial];
         }
@@ -265,13 +261,17 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 - (void)_startTutorial:(_FLWTutorial *)tutorial
 {
     self.displayLink.frameInterval = 1;
-    
+
+    tutorial.constructionBlock(tutorial);
+    if (![self _tutorialSatisfiesDependentTutorialIdentifiers:tutorial]) {
+        return;
+    }
+
     NSParameterAssert(self.activeTutorial == nil);
     self.activeTutorial = tutorial;
     self.activeTutorial.state = FLWTutorialStateRunning;
     self.activeTutorial.isTransitioningToFinish = NO;
     self.activeTutorial.isTransitioningToRunning = YES;
-    self.activeTutorial.constructionBlock(self.activeTutorial);
 
     [self.activeTutorial speakText:self.activeTutorial.title];
 
