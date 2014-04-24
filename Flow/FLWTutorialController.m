@@ -311,6 +311,11 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.activeTutorial.isTransitioningToFinish = YES;
     self.overlayView.progress = success ? 1.0 : 0.0;
 
+    if (success && self.activeTutorial.successMessage) {
+        self.overlayView.textLabel.text = self.activeTutorial.successMessage;
+        [self _readTutorialText:self.activeTutorial.successMessage];
+    }
+
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn;
     [UIView animateWithDuration:0.5 delay:0.0 options:options animations:^{
         if (success) {

@@ -37,7 +37,7 @@
 
 
 @implementation _FLWTutorial
-@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers, speechSynthesisesDisabled = _speechSynthesisesDisabled;
+@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers, speechSynthesisesDisabled = _speechSynthesisesDisabled, successMessage = _successMessage;
 
 #pragma mark - setters and getters
 

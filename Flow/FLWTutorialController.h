@@ -36,6 +36,7 @@ typedef BOOL(^SPLBlockPredicate)(void);
 @protocol FLWTutorial <NSObject>
 
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *successMessage;
 @property (nonatomic, strong) id<FLWTouchGesture> gesture;
 
 @property (nonatomic, assign) BOOL speechSynthesisesDisabled;
