@@ -30,6 +30,8 @@
 #import "_FLWTutorialWindow.h"
 #import "_FLWTutorialTouchIndicatorView.h"
 
+#import <AVFoundation/AVFoundation.h>
+
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 
 static NSString *globalIdentifierForIdentifier(NSString *identifier)
@@ -274,6 +276,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.activeTutorial.isTransitioningToRunning = YES;
     self.activeTutorial.constructionBlock(self.activeTutorial);
 
+    if (self.activeTutorial.speechSynthesisesEnabled) {
+        [self _readTutorialText:self.activeTutorial.title];
+    }
+
     UIView *containerView = self.window.rootViewController.view;
     static CGFloat additionalHeight = 50.0;
 
@@ -327,6 +333,15 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
             [self _numberOfTutorialsChanged];
         }];
     }];
+}
+
+- (void)_readTutorialText:(NSString *)text
+{
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    utterance.rate = (AVSpeechUtteranceDefaultSpeechRate + AVSpeechUtteranceMinimumSpeechRate) / 2.0;
+
+    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
+    [synth speakUtterance:utterance];
 }
 
 @end

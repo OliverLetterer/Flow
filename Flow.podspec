@@ -4,7 +4,7 @@ Pod::Spec.new do |spec|
   spec.platform     = :ios, '7.0'
   spec.license      = 'MIT'
   spec.source       = { :git => 'https://github.com/OliverLetterer/Flow.git', :tag => spec.version.to_s }
-  spec.frameworks   = 'Foundation', 'UIKit'
+  spec.frameworks   = 'Foundation', 'UIKit', 'AVFoundation'
   spec.requires_arc = true
   spec.homepage     = 'https://github.com/OliverLetterer/Flow'
   spec.summary      = 'Gesture based tutorials inspired by Facebook Paper.'
