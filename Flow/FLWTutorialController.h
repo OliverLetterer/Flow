@@ -50,7 +50,9 @@ typedef BOOL(^SPLBlockPredicate)(void);
 @interface FLWTutorialController : NSObject 
 
 /**
- Schedules a new tutorial if that tutorial is not already completed.
+ Schedules a new tutorial if that tutorial is not already completed. 
+ 
+ @param delay Is only counted down when predicate evaluates to true
  */
 - (void)scheduleTutorialWithIdentifier:(NSString *)identifier afterDelay:(NSTimeInterval)delay withPredicate:(SPLBlockPredicate)predicate constructionBlock:(void(^)(id<FLWTutorial> tutorial))constructionBlock;
 

@@ -214,6 +214,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 - (void)_countRemainingTutorialTimeDownWithPassedDuration:(NSTimeInterval)passedDuration
 {
     for (_FLWTutorial *tutorial in self.scheduledTutorials) {
+        if (tutorial.predicate && !tutorial.predicate()) {
+            continue;
+        }
+        
         tutorial.remainingDuration -= passedDuration;
     }
 }
@@ -221,6 +225,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 - (void)_checkForNextTutorial
 {
     for (_FLWTutorial *tutorial in self.scheduledTutorials) {
+        if (![self _tutorialSatisfiesDependentTutorialIdentifiers:tutorial]) {
+            continue;
+        }
+
         if (tutorial.canStartTutorial) {
             [self _startTutorial:tutorial];
         }
