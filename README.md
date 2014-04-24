@@ -17,7 +17,7 @@ pod "Flow"
 
 ## Usage
 
-To schedule a new tutorial:
+### scheduling a new tutorial
 
 ```objc
 [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:identifier afterDelay:0.5 withPredicate:^BOOL{
@@ -29,24 +29,7 @@ To schedule a new tutorial:
 }];
 ```
 
-If your app leaves the scope where the tutorial is valid, invalidate the tutorial:
-
-```objc
-[[FLWTutorialController sharedInstance] invalidateTutorialWithIdentifier:identifier];
-```
-
-Change the progress of an interactive tutorial:
-
-```objc
-[[FLWTutorialController sharedInstance] setProgress:progress inTutorialWithIdentifier:identifier];
-```
-
-And mark the tutorial as completed:
-
-```objc
-[[FLWTutorialController sharedInstance] completeTutorialWithIdentifier:dummyIdentifier];
-```
-
+### Gestures
 Flow ships with the buildin gestures `FLWTapGesture`, `FLWSwipeGesture` and `FLWCompoundGesture` and supports all gestures conforming to the `FLWTouchGesture` protocol:
 
 ```objc
@@ -58,6 +41,26 @@ Flow ships with the buildin gestures `FLWTapGesture`, `FLWSwipeGesture` and `FLW
 - (void)setProgress:(CGFloat)progress onView:(UIView *)view;
 
 @end
+```
+
+### Changing progress of interactive tutorials
+
+```objc
+[[FLWTutorialController sharedInstance] setProgress:progress inTutorialWithIdentifier:identifier];
+```
+
+### Completion
+Mark a tutorial as completed
+
+```objc
+[[FLWTutorialController sharedInstance] completeTutorialWithIdentifier:dummyIdentifier];
+```
+
+### Tutorial invalidation
+If your app leaves the scope where the tutorial is valid:
+
+```objc
+[[FLWTutorialController sharedInstance] invalidateTutorialWithIdentifier:identifier];
 ```
 
 ## Author
