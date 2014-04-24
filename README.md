@@ -12,12 +12,53 @@ Flow is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile:
 
 ``` ruby
-pod "SPLMessageLogger"
+pod "Flow"
 ```
 
 ## Usage
 
-TODO
+To schedule a new tutorial:
+
+```objc
+[[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:identifier afterDelay:0.5 withPredicate:^BOOL{
+  // return NO if you are net yet ready to start this tutorial.
+  return YES;
+} constructionBlock:^(id<FLWTutorial> tutorial) {
+  tutorial.title = ...; // assign tutorials title
+  tutorial.gesture = ...; // assigne tutorials gesture
+}];
+```
+
+If your app leaves the scope where the tutorial is valid, invalidate the tutorial:
+
+```objc
+[[FLWTutorialController sharedInstance] invalidateTutorialWithIdentifier:identifier];
+```
+
+Change the progress of an interactive tutorial:
+
+```objc
+[[FLWTutorialController sharedInstance] setProgress:progress inTutorialWithIdentifier:identifier];
+```
+
+And mark the tutorial as completed:
+
+```objc
+[[FLWTutorialController sharedInstance] completeTutorialWithIdentifier:dummyIdentifier];
+```
+
+Flow ships with the buildin gestures `FLWTapGesture`, `FLWSwipeGesture` and `FLWCompoundGesture` and supports all gestures conforming to the `FLWTouchGesture` protocol:
+
+```objc
+@protocol FLWTouchGesture <NSObject>
+
+@property (nonatomic, assign) CGFloat duration;
+
+@property (nonatomic, readonly) CGFloat progress;
+- (void)setProgress:(CGFloat)progress onView:(UIView *)view;
+
+@end
+```
 
 ## Author
 
