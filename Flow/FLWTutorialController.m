@@ -187,6 +187,11 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     NSTimeInterval passedDuration = displayLink.timestamp - self.lastDisplayLinkCallback;
     self.lastDisplayLinkCallback = displayLink.timestamp;
 
+    BOOL alertOrActionSheetIsVisible = [UIApplication sharedApplication].keyWindow != [UIApplication sharedApplication].delegate.window;
+    if (alertOrActionSheetIsVisible) {
+        return;
+    }
+
     if (self.activeTutorial) {
         [self _updateActiveTutorialWithPassedDuration:passedDuration];
         return;
