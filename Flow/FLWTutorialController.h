@@ -28,6 +28,7 @@
 
 #warning nice fade out transition for userinteraction or dismissal
 #warning mark all tutorials as completed, that have been dismissed 3 times
+#warning bounce checkmark for completed tutorials
 
 typedef BOOL(^FLWBlockPredicate)(void);
 

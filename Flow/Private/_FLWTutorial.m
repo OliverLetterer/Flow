@@ -86,6 +86,20 @@
 
 #pragma mark - Instance methods
 
+- (void)cancelSpeeking
+{
+    self.speechSynthesizer.delegate = nil;
+    [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    self.speechSynthesizer = nil;
+
+    if (self.speechCompletionBlock) {
+        self.speechCompletionBlock();
+        self.speechCompletionBlock = nil;
+    }
+
+    self.isSpeeking = NO;
+}
+
 - (void)speakText:(NSString *)text
 {
     if (self.speechSynthesisesDisabled) {
@@ -93,14 +107,7 @@
     }
     
     if (self.speechSynthesizer) {
-        self.speechSynthesizer.delegate = nil;
-        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
-        self.speechSynthesizer = nil;
-
-        if (self.speechCompletionBlock) {
-            self.speechCompletionBlock();
-            self.speechCompletionBlock = nil;
-        }
+        [self cancelSpeeking];
     }
 
     AVSpeechUtterance *speechUtterance = [AVSpeechUtterance speechUtteranceWithString:text];

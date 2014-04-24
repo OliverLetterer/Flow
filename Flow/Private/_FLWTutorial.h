@@ -59,6 +59,7 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 
 @property (nonatomic, readonly) BOOL isSpeeking;
 - (void)speakText:(NSString *)text;
+- (void)cancelSpeeking;
 - (void)executeBlockAfterCurrentSpeechFinished:(dispatch_block_t)block;
 
 @end

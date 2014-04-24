@@ -336,6 +336,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
             self.overlayView.backgroundColor = [UIColor colorWithRed:59.0 / 255.0 green:208.0 / 255.0 blue:82.0 / 255.0 alpha:1.0];
         }
     } completion:^(BOOL finished) {
+        if (!success && self.activeTutorial.isSpeeking) {
+            [self.activeTutorial cancelSpeeking];
+        }
+        
         if (self.activeTutorial.isSpeeking) {
             [self.activeTutorial executeBlockAfterCurrentSpeechFinished:nowPerformSlideOutAnimation];
         } else {
