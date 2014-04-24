@@ -154,7 +154,13 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 - (void)tutorialOverlayViewDidCancel:(_FLWTutorialOverlayView *)overlayView
 {
-    [self invalidateTutorialWithIdentifier:self.activeTutorial.identifier];
+    _FLWTutorial *activeTutorial = self.activeTutorial;
+    BOOL shouldUpdateCancellationCount = !activeTutorial.isTransitioningToFinish;
+
+    [self invalidateTutorialWithIdentifier:activeTutorial.identifier];
+    if (shouldUpdateCancellationCount) {
+        [self _updateCancellationCountOfTutorial:activeTutorial];
+    }
 }
 
 #pragma mark - Private category implementation ()
@@ -254,6 +260,21 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     }
 
     return YES;
+}
+
+- (void)_updateCancellationCountOfTutorial:(_FLWTutorial *)tutorial
+{
+    NSString *tutorialIdentifier = globalIdentifierForIdentifier(tutorial.identifier);
+    NSString *failCountIdentifier = [tutorialIdentifier stringByAppendingString:@".cancellationCount"];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:failCountIdentifier];
+    count++;
+
+    [[NSUserDefaults standardUserDefaults] setInteger:count forKey:failCountIdentifier];
+
+    BOOL shouldMarkTutorialAsCompleted = count >= 3;
+    if (shouldMarkTutorialAsCompleted) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:tutorialIdentifier];
+    }
 }
 
 #pragma mark - tutorial methods
