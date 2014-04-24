@@ -38,10 +38,7 @@ typedef BOOL(^SPLBlockPredicate)(void);
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) id<FLWTouchGesture> gesture;
 
-/**
- Uses iOS 7 AVSpeechSynthesizer to read the tutorial to the user out loud. Defaults to YES.
- */
-@property (nonatomic, assign) BOOL speechSynthesisesEnabled;
+@property (nonatomic, assign) BOOL speechSynthesisesDisabled;
 
 @property (nonatomic, copy) NSArray *dependentTutorialIdentifiers;
 

@@ -37,7 +37,7 @@
 
 
 @implementation _FLWTutorial
-@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers, speechSynthesisesEnabled = _speechSynthesisesEnabled;
+@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers, speechSynthesisesDisabled = _speechSynthesisesDisabled;
 
 #pragma mark - setters and getters
 
@@ -61,7 +61,6 @@
     if (self = [super init]) {
         _identifier = [identifier copy];
         _gestures = [NSMutableArray array];
-        _speechSynthesisesEnabled = YES;
     }
     return self;
 }

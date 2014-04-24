@@ -276,7 +276,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.activeTutorial.isTransitioningToRunning = YES;
     self.activeTutorial.constructionBlock(self.activeTutorial);
 
-    if (self.activeTutorial.speechSynthesisesEnabled) {
+    if (!self.activeTutorial.speechSynthesisesDisabled) {
         [self _readTutorialText:self.activeTutorial.title];
     }
 
