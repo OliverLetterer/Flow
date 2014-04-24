@@ -82,11 +82,11 @@
         }
     }
 
-    CGFloat gesturesStartProgress = currentTimeOffset / totalDuration;
-    CGFloat gesturesEndProgress = (currentTimeOffset + interpolatingGesture.duration) / totalDuration;
+    CGFloat gestureStartProgress = currentTimeOffset / totalDuration;
+    CGFloat gestureEndProgress = (currentTimeOffset + interpolatingGesture.duration) / totalDuration;
 
-    CGFloat gesturesProgress = (progress - gesturesStartProgress) / (gesturesEndProgress - gesturesStartProgress);
-    [interpolatingGesture setProgress:gesturesProgress onView:view];
+    CGFloat gestureProgress = (progress - gestureStartProgress) / (gestureEndProgress - gestureStartProgress);
+    [interpolatingGesture setProgress:gestureProgress onView:view];
 }
 
 @end
