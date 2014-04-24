@@ -27,6 +27,7 @@
 #import "FLWTouchGesture.h"
 
 #warning nice fade out transition for userinteraction or dismissal
+#warning mark all tutorials as completed, that have been dismissed 3 times
 
 typedef BOOL(^FLWBlockPredicate)(void);
 
