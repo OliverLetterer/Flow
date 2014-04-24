@@ -242,6 +242,17 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     [self.activeTutorial.gesture setProgress:fmod(progress, 1.0) onView:self.gestureView];
 }
 
+- (BOOL)_tutorialSatisfiesDependentTutorialIdentifiers:(_FLWTutorial *)tutorial
+{
+    for (NSString *identifier in tutorial.dependentTutorialIdentifiers) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:globalIdentifierForIdentifier(identifier)]) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 #pragma mark - tutorial methods
 
 - (void)_startTutorial:(_FLWTutorial *)tutorial
