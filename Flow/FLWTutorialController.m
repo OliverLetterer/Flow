@@ -351,6 +351,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         }];
     };
 
+    if (success) {
+        [self.overlayView bounceProgressView];
+    }
+
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn;
     [UIView animateWithDuration:0.5 delay:0.0 options:options animations:^{
         if (success) {

@@ -153,6 +153,33 @@ static CGFloat crossFadeThreshold = 0.25;
     self.progressView.frame = UIEdgeInsetsInsetRect(rightRect, UIEdgeInsetsMake(10.0, 0.0, 10.0, 14.0));
 }
 
+- (void)bounceProgressView
+{
+    CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    transformAnimation.values = @[
+                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.4, 1.4, 1.0)],
+                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.95, 0.95, 1.0)],
+
+                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.05, 1.05, 1.0)],
+                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.975, 0.975, 1.0)],
+
+                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)],
+                                  ];
+
+    CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeAnimation.fromValue = @0.0;
+    fadeAnimation.toValue = @1.0;
+    fadeAnimation.duration = 0.5 / 5.0 * 2.0;
+
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    animationGroup.animations = @[ transformAnimation, fadeAnimation ];
+    animationGroup.duration = 0.5;
+    animationGroup.removedOnCompletion = YES;
+
+    [self.progressView.layer addAnimation:animationGroup forKey:@"bounce"];
+
+}
+
 - (void)_progressViewTouchedUpInside:(_FLWTutorialOverlayViewProgressControl *)progressView
 {
     if (self.progress == 0.0) {

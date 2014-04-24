@@ -36,6 +36,8 @@
 
 @interface _FLWTutorialOverlayView : UIView
 
+- (void)bounceProgressView;
+
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, readonly) UILabel *textLabel;
 
