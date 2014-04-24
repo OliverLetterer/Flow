@@ -28,7 +28,7 @@
 
 #warning nice fade out transition for userinteraction or dismissal
 
-typedef BOOL(^SPLBlockPredicate)(void);
+typedef BOOL(^FLWBlockPredicate)(void);
 
 
 
@@ -56,7 +56,7 @@ typedef BOOL(^SPLBlockPredicate)(void);
  
  @param delay Is only counted down when predicate evaluates to true
  */
-- (void)scheduleTutorialWithIdentifier:(NSString *)identifier afterDelay:(NSTimeInterval)delay withPredicate:(SPLBlockPredicate)predicate constructionBlock:(void(^)(id<FLWTutorial> tutorial))constructionBlock;
+- (void)scheduleTutorialWithIdentifier:(NSString *)identifier afterDelay:(NSTimeInterval)delay withPredicate:(FLWBlockPredicate)predicate constructionBlock:(void(^)(id<FLWTutorial> tutorial))constructionBlock;
 
 /**
  Invalides a scheduled tutorial without changing its completion state.

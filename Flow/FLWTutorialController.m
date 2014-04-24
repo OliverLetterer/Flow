@@ -73,7 +73,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     }
 }
 
-- (void)scheduleTutorialWithIdentifier:(NSString *)identifier afterDelay:(NSTimeInterval)delay withPredicate:(SPLBlockPredicate)predicate constructionBlock:(void(^)(id<FLWTutorial> tutorial))constructionBlock
+- (void)scheduleTutorialWithIdentifier:(NSString *)identifier afterDelay:(NSTimeInterval)delay withPredicate:(FLWBlockPredicate)predicate constructionBlock:(void(^)(id<FLWTutorial> tutorial))constructionBlock
 {
     NSParameterAssert([NSThread currentThread].isMainThread);
     NSParameterAssert(constructionBlock);
