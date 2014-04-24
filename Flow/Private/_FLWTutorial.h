@@ -56,4 +56,9 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 @property (nonatomic, copy) void(^constructionBlock)(id<FLWTutorial> tutorial);
 @property (nonatomic, readonly) NSArray *gestures;
 
+
+@property (nonatomic, readonly) BOOL isSpeeking;
+- (void)speakText:(NSString *)text;
+- (void)executeBlockAfterCurrentSpeechFinished:(dispatch_block_t)block;
+
 @end

@@ -30,8 +30,6 @@
 #import "_FLWTutorialWindow.h"
 #import "_FLWTutorialTouchIndicatorView.h"
 
-#import <AVFoundation/AVFoundation.h>
-
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 
 static NSString *globalIdentifierForIdentifier(NSString *identifier)
@@ -277,9 +275,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.activeTutorial.isTransitioningToRunning = YES;
     self.activeTutorial.constructionBlock(self.activeTutorial);
 
-    if (!self.activeTutorial.speechSynthesisesDisabled) {
-        [self _readTutorialText:self.activeTutorial.title];
-    }
+    [self.activeTutorial speakText:self.activeTutorial.title];
 
     UIView *containerView = self.window.rootViewController.view;
     static CGFloat additionalHeight = 50.0;
@@ -314,18 +310,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
     if (success && self.activeTutorial.successMessage) {
         self.overlayView.textLabel.text = self.activeTutorial.successMessage;
-
-        if (!self.activeTutorial.speechSynthesisesDisabled) {
-            [self _readTutorialText:self.activeTutorial.successMessage];
-        }
+        [self.activeTutorial speakText:self.activeTutorial.successMessage];
     }
 
-    UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn;
-    [UIView animateWithDuration:0.5 delay:0.0 options:options animations:^{
-        if (success) {
-            self.overlayView.backgroundColor = [UIColor colorWithRed:59.0 / 255.0 green:208.0 / 255.0 blue:82.0 / 255.0 alpha:1.0];
-        }
-    } completion:^(BOOL finished) {
+    void(^nowPerformSlideOutAnimation)(void) = ^{
         [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
             self.overlayView.transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
         } completion:^(BOOL finished) {
@@ -342,16 +330,20 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
             self.displayLink.frameInterval = 10;
             [self _numberOfTutorialsChanged];
         }];
+    };
+
+    UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn;
+    [UIView animateWithDuration:0.5 delay:0.0 options:options animations:^{
+        if (success) {
+            self.overlayView.backgroundColor = [UIColor colorWithRed:59.0 / 255.0 green:208.0 / 255.0 blue:82.0 / 255.0 alpha:1.0];
+        }
+    } completion:^(BOOL finished) {
+        if (self.activeTutorial.isSpeeking) {
+            [self.activeTutorial executeBlockAfterCurrentSpeechFinished:nowPerformSlideOutAnimation];
+        } else {
+            nowPerformSlideOutAnimation();
+        }
     }];
-}
-
-- (void)_readTutorialText:(NSString *)text
-{
-    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
-    utterance.rate = (AVSpeechUtteranceDefaultSpeechRate + AVSpeechUtteranceMinimumSpeechRate) / 2.0;
-
-    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
-    [synth speakUtterance:utterance];
 }
 
 @end

@@ -25,12 +25,18 @@
 //
 
 #import "_FLWTutorial.h"
+#import <AVFoundation/AVFoundation.h>
 
 
 
-@interface _FLWTutorial () {
+@interface _FLWTutorial () <AVSpeechSynthesizerDelegate> {
     NSMutableArray *_gestures;
 }
+
+@property (nonatomic, strong) AVSpeechSynthesizer *speechSynthesizer;
+@property (nonatomic, strong) dispatch_block_t speechCompletionBlock;
+
+@property (nonatomic, assign) BOOL isSpeeking;
 
 @end
 
@@ -65,7 +71,54 @@
     return self;
 }
 
+#pragma mark - AVSpeechSynthesizerDelegate
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
+{
+    self.isSpeeking = NO;
+    self.speechSynthesizer = nil;
+
+    if (self.speechCompletionBlock) {
+        self.speechCompletionBlock();
+        self.speechCompletionBlock = nil;
+    }
+}
+
 #pragma mark - Instance methods
+
+- (void)speakText:(NSString *)text
+{
+    if (self.speechSynthesisesDisabled) {
+        return;
+    }
+    
+    if (self.speechSynthesizer) {
+        self.speechSynthesizer.delegate = nil;
+        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+        self.speechSynthesizer = nil;
+
+        if (self.speechCompletionBlock) {
+            self.speechCompletionBlock();
+            self.speechCompletionBlock = nil;
+        }
+    }
+
+    AVSpeechUtterance *speechUtterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    speechUtterance.rate = (AVSpeechUtteranceDefaultSpeechRate + AVSpeechUtteranceMinimumSpeechRate) / 2.0;
+
+    self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    self.speechSynthesizer.delegate = self;
+    [self.speechSynthesizer speakUtterance:speechUtterance];
+
+    self.isSpeeking = YES;
+}
+
+- (void)executeBlockAfterCurrentSpeechFinished:(dispatch_block_t)block
+{
+    self.speechCompletionBlock = block;
+}
+
+#pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object
 {
