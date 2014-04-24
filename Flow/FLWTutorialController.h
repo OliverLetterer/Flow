@@ -35,6 +35,8 @@ typedef BOOL(^SPLBlockPredicate)(void);
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) id<FLWTouchGesture> gesture;
 
+@property (nonatomic, copy) NSArray *dependentTutorialIdentifiers;
+
 @end
 
 

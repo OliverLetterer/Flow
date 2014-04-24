@@ -37,7 +37,7 @@
 
 
 @implementation _FLWTutorial
-@synthesize title = _title, gesture = _gesture;
+@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers;
 
 #pragma mark - setters and getters
 
@@ -86,7 +86,5 @@
 {
     return [NSString stringWithFormat:@"%@: %@", super.description, self.identifier];
 }
-
-#pragma mark - Private category implementation ()
 
 @end

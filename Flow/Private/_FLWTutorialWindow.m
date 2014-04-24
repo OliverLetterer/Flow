@@ -48,7 +48,8 @@
         self.rootViewController = [[UIViewController alloc] init];
         self.rootViewController.view.backgroundColor = [UIColor clearColor];
 
-        [self makeKeyAndVisible], [self resignKeyWindow];
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [self makeKeyAndVisible], [keyWindow makeKeyAndVisible];
     }
     return self;
 }

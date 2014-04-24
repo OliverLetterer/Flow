@@ -87,6 +87,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     }
 
     _FLWTutorial *tutorial = [[_FLWTutorial alloc] initWithIdentifier:identifier];
+    tutorial.predicate = predicate;
     tutorial.remainingDuration = delay;
     tutorial.state = FLWTutorialStateScheduled;
 

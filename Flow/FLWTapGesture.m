@@ -49,7 +49,7 @@ static inline BOOL _SPLIntervalContainsFrame(_SPLInterval interval, CGFloat fram
         _touchPoint = touchPoint;
         _view = view;
 
-        _duration = 4.0;
+        _duration = 2.0;
     }
     return self;
 }
