@@ -24,13 +24,21 @@
 //  THE SOFTWARE.
 //
 
+@class _FLWTutorialOverlayView;
 
-/**
- @abstract  <#abstract comment#>
- */
+@protocol _FLWTutorialOverlayViewDelegate <NSObject>
+
+- (void)tutorialOverlayViewDidCancel:(_FLWTutorialOverlayView *)overlayView;
+
+@end
+
+
+
 @interface _FLWTutorialOverlayView : UIView
 
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, readonly) UILabel *textLabel;
+
+@property (nonatomic, weak) id<_FLWTutorialOverlayViewDelegate> delegate;
 
 @end

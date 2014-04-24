@@ -131,6 +131,7 @@
         [self addSubview:_textLabel];
 
         _progressView = [[_FLWTutorialOverlayViewProgressControl alloc] initWithFrame:CGRectZero];
+        [_progressView addTarget:self action:@selector(_progressViewTouchedUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_progressView];
     }
     return self;
@@ -146,6 +147,13 @@
 
     self.textLabel.frame = UIEdgeInsetsInsetRect(leftRect, UIEdgeInsetsMake(10.0, 14.0, 10.0, 7.0));
     self.progressView.frame = UIEdgeInsetsInsetRect(rightRect, UIEdgeInsetsMake(10.0, 0.0, 10.0, 14.0));
+}
+
+- (void)_progressViewTouchedUpInside:(_FLWTutorialOverlayViewProgressControl *)progressView
+{
+    if (self.progress == 0.0) {
+        [self.delegate tutorialOverlayViewDidCancel:self];
+    }
 }
 
 @end

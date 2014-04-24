@@ -40,7 +40,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 
 
-@interface FLWTutorialController ()
+@interface FLWTutorialController () <_FLWTutorialOverlayViewDelegate>
 
 @property (nonatomic, strong) _FLWTutorialWindow *window;
 
@@ -149,6 +149,13 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     return self;
 }
 
+#pragma mark - _FLWTutorialOverlayViewDelegate
+
+- (void)tutorialOverlayViewDidCancel:(_FLWTutorialOverlayView *)overlayView
+{
+    [self invalidateTutorialWithIdentifier:self.activeTutorial.identifier];
+}
+
 #pragma mark - Private category implementation ()
 
 - (BOOL)_hasCompletedTutorialWithIdentifier:(NSString *)identifier
@@ -246,6 +253,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     static CGFloat additionalHeight = 50.0;
 
     self.overlayView = [[_FLWTutorialOverlayView alloc] initWithFrame:CGRectMake(0.0, -additionalHeight, CGRectGetWidth(containerView.bounds), preferredTutorialHeight + additionalHeight)];
+    self.overlayView.delegate = self;
     self.overlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.overlayView.textLabel.text = self.activeTutorial.title;
     self.overlayView.transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);

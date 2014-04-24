@@ -25,6 +25,7 @@
 //
 
 #import "_FLWTutorialWindow.h"
+#import "_FLWTutorialOverlayView.h"
 
 
 
@@ -41,17 +42,21 @@
 - (id)initWithFrame:(CGRect)frame 
 {
     if (self = [super initWithFrame:frame]) {
-        self.userInteractionEnabled = NO;
         self.backgroundColor = [UIColor clearColor];
         self.windowLevel = UIWindowLevelAlert;
 
         self.rootViewController = [[UIViewController alloc] init];
         self.rootViewController.view.backgroundColor = [UIColor clearColor];
 
-        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-        [self makeKeyAndVisible], [keyWindow makeKeyAndVisible];
+        [self makeKeyAndVisible], [self resignKeyWindow];
     }
     return self;
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    UIView *hitTestView = [super hitTest:point withEvent:event];
+    return [hitTestView isKindOfClass:[UIControl class]] || [hitTestView isKindOfClass:[_FLWTutorialOverlayView class]] ? hitTestView : nil;
 }
 
 @end
