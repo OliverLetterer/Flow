@@ -27,6 +27,7 @@
 #import "FLWTouchGesture.h"
 
 #warning nice fade out transition for userinteraction or dismissal
+#warning dismiss after speech
 
 typedef BOOL(^SPLBlockPredicate)(void);
 
