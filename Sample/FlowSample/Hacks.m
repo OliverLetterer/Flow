@@ -21,27 +21,6 @@ static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSele
     }
 }
 
-@interface FLWTutorialController ()
-
-- (BOOL)_hasCompletedTutorialWithIdentifier:(NSString *)identifier;
-
-@end
-
-@implementation FLWTutorialController (Hacks)
-
-+ (void)load
-{
-    NSAssert([self instanceMethodForSelector:@selector(_hasCompletedTutorialWithIdentifier:)], @"");
-    class_swizzleSelector(self, @selector(_hasCompletedTutorialWithIdentifier:), @selector(__iCuisineDebugHasCompletedTutorialWithIdentifier:));
-}
-
-- (BOOL)__iCuisineDebugHasCompletedTutorialWithIdentifier:(NSString *)identifier
-{
-    return NO;
-}
-
-@end
-
 
 
 @implementation AVSpeechSynthesizer (Hacks)

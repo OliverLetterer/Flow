@@ -13,6 +13,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSDictionary *dictionary = [NSUserDefaults standardUserDefaults].dictionaryRepresentation;
+
+    for (NSString *key in dictionary) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 

@@ -120,7 +120,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 {
     NSParameterAssert([NSThread currentThread].isMainThread);
 
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:globalIdentifierForIdentifier(identifier)];
+    [self _setCompleted:YES forTutorialWithIdentifier:identifier];
     _FLWTutorial *tutorial = [self _tutorialWithIdentifier:identifier];
 
     if (tutorial.state == FLWTutorialStateRunning) {
@@ -169,6 +169,11 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 - (BOOL)_hasCompletedTutorialWithIdentifier:(NSString *)identifier
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:globalIdentifierForIdentifier(identifier)];
+}
+
+- (void)_setCompleted:(BOOL)completed forTutorialWithIdentifier:(NSString *)identifier
+{
+    [[NSUserDefaults standardUserDefaults] setBool:completed forKey:globalIdentifierForIdentifier(identifier)];
 }
 
 - (void)_numberOfTutorialsChanged
@@ -233,8 +238,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 - (void)_checkForNextTutorial
 {
     for (_FLWTutorial *tutorial in self.scheduledTutorials) {
-        if (tutorial.canStartTutorial) {
-            [self _startTutorial:tutorial];
+        if (tutorial.canStartTutorial && [self _startTutorial:tutorial]) {
             break;
         }
     }
@@ -265,7 +269,8 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 - (BOOL)_tutorialSatisfiesDependentTutorialIdentifiers:(_FLWTutorial *)tutorial
 {
     for (NSString *identifier in tutorial.dependentTutorialIdentifiers) {
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:globalIdentifierForIdentifier(identifier)]) {
+        if (![self _hasCompletedTutorialWithIdentifier:identifier]) {
+            NSLog(@"tutorial %@ cannot start because of %@", tutorial, identifier);
             return NO;
         }
     }
@@ -284,19 +289,19 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
     BOOL shouldMarkTutorialAsCompleted = count >= 3;
     if (shouldMarkTutorialAsCompleted) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:tutorialIdentifier];
+        [self _setCompleted:YES forTutorialWithIdentifier:tutorialIdentifier];
     }
 }
 
 #pragma mark - tutorial methods
 
-- (void)_startTutorial:(_FLWTutorial *)tutorial
+- (BOOL)_startTutorial:(_FLWTutorial *)tutorial
 {
     self.displayLink.frameInterval = 1;
 
     tutorial.constructionBlock(tutorial);
     if (![self _tutorialSatisfiesDependentTutorialIdentifiers:tutorial]) {
-        return;
+        return NO;
     }
 
     NSParameterAssert(self.activeTutorial == nil);
@@ -331,6 +336,8 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     } completion:^(BOOL finished) {
         tutorial.isTransitioningToRunning = NO;
     }];
+
+    return YES;
 }
 
 - (void)_finishActiveTutorialWithSuccess:(BOOL)success

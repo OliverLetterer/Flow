@@ -93,30 +93,6 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
     [super viewDidAppear:animated];
 
     __weak typeof(self) weakSelf = self;
-    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerFirstTutorial afterDelay:2.0 withPredicate:^BOOL{
-        __strong typeof(self) strongSelf = weakSelf;
-        return strongSelf.scrollView.contentOffset.x <= 0.0;
-    } constructionBlock:^(id<FLWTutorial> tutorial) {
-        __strong typeof(self) strongSelf = weakSelf;
-
-        UIView *buttonView = strongSelf.firstBackgroundView.subviews.firstObject;
-
-        tutorial.title = @"To begin, you need to tap the first button";
-        tutorial.successMessage = @"Great";
-        tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
-    }];
-
-    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerSecondTutorial afterDelay:2.0 withPredicate:NULL constructionBlock:^(id<FLWTutorial> tutorial) {
-        __strong typeof(self) strongSelf = weakSelf;
-
-        tutorial.title = @"You can now swipe to the second page";
-        tutorial.successMessage = @"Excellent";
-
-        tutorial.gesture = [[FLWSwipeGesture alloc] initWithSwipeFromPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.8, CGRectGetMidY(strongSelf.view.bounds))
-                                                                   toPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.2, CGRectGetMidY(strongSelf.view.bounds))
-                                                                    inView:strongSelf.view];
-    }];
-
     [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerThirdTutorial afterDelay:0.0 withPredicate:^BOOL{
         __strong typeof(self) strongSelf = weakSelf;
         return strongSelf.scrollView.contentOffset.x >= CGRectGetWidth(strongSelf.view.bounds);
@@ -127,6 +103,33 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
 
         tutorial.title = @"To complete this tutorial, tap the second button";
         tutorial.successMessage = @"Perfect, have fun using the app";
+        tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial, FLWMainViewControllerSecondTutorial ];
+
+        tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
+    }];
+
+    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerSecondTutorial afterDelay:2.0 withPredicate:NULL constructionBlock:^(id<FLWTutorial> tutorial) {
+        __strong typeof(self) strongSelf = weakSelf;
+
+        tutorial.title = @"You can now swipe to the second page";
+        tutorial.successMessage = @"Excellent";
+        tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial ];
+
+        tutorial.gesture = [[FLWSwipeGesture alloc] initWithSwipeFromPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.8, CGRectGetMidY(strongSelf.view.bounds))
+                                                                   toPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.2, CGRectGetMidY(strongSelf.view.bounds))
+                                                                    inView:strongSelf.view];
+    }];
+
+    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerFirstTutorial afterDelay:2.0 withPredicate:^BOOL{
+        __strong typeof(self) strongSelf = weakSelf;
+        return strongSelf.scrollView.contentOffset.x <= 0.0;
+    } constructionBlock:^(id<FLWTutorial> tutorial) {
+        __strong typeof(self) strongSelf = weakSelf;
+
+        UIView *buttonView = strongSelf.firstBackgroundView.subviews.firstObject;
+
+        tutorial.title = @"To begin, you need to tap the first button";
+        tutorial.successMessage = @"Great";
         tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
     }];
 }
