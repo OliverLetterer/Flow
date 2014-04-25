@@ -24,8 +24,6 @@
 //  THE SOFTWARE.
 //
 
-#warning sample project
-
 #import "FLWTutorialController.h"
 #import "_FLWTutorial.h"
 #import "_FLWTutorialOverlayView.h"
@@ -181,7 +179,9 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         self.lastDisplayLinkCallback = 0.0;
         self.window = nil;
     } else {
-        self.window = [[_FLWTutorialWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        if (!self.window) {
+            self.window = [[_FLWTutorialWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        }
     }
 }
 
@@ -235,6 +235,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     for (_FLWTutorial *tutorial in self.scheduledTutorials) {
         if (tutorial.canStartTutorial) {
             [self _startTutorial:tutorial];
+            break;
         }
     }
 }
