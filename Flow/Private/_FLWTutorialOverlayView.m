@@ -157,26 +157,14 @@ static CGFloat crossFadeThreshold = 0.25;
 {
     CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     transformAnimation.values = @[
-                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.4, 1.4, 1.0)],
-                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.95, 0.95, 1.0)],
-
-                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.05, 1.05, 1.0)],
-                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.975, 0.975, 1.0)],
-
+                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.3, 1.3, 1.0)],
+                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.85, 0.85, 1.0)],
                                   [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)],
                                   ];
+    transformAnimation.duration = 0.3;
+    transformAnimation.removedOnCompletion = YES;
 
-    CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeAnimation.fromValue = @0.0;
-    fadeAnimation.toValue = @1.0;
-    fadeAnimation.duration = 0.5 / 5.0 * 2.0;
-
-    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = @[ transformAnimation, fadeAnimation ];
-    animationGroup.duration = 0.3;
-    animationGroup.removedOnCompletion = YES;
-
-    [self.progressView.layer addAnimation:animationGroup forKey:@"bounce"];
+    [self.progressView.layer addAnimation:transformAnimation forKey:@"bounce"];
 
 }
 
