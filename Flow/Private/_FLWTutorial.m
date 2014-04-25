@@ -127,21 +127,6 @@
 
 #pragma mark - NSObject
 
-- (BOOL)isEqual:(id)object
-{
-    return [object isKindOfClass:[_FLWTutorial class]] ? [self isEqualToTutorial:object] : [super isEqual:object];
-}
-
-- (BOOL)isEqualToTutorial:(_FLWTutorial *)tutorial
-{
-    return self.identifier == tutorial.identifier || [self.identifier isEqual:tutorial.identifier];
-}
-
-- (NSUInteger)hash
-{
-    return self.identifier.hash;
-}
-
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"%@: %@", super.description, self.identifier];

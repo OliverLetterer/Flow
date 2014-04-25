@@ -51,6 +51,11 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
     return self;
 }
 
+- (void)dealloc
+{
+    [self _invalidateAllTutorials];
+}
+
 #pragma mark - View lifecycle
 
 - (void)loadView
@@ -86,60 +91,29 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
     [secondTutorialButton sizeToFit];
     secondTutorialButton.center = CGPointMake(CGRectGetMidX(_secondBackgroundView.bounds), CGRectGetMidY(_secondBackgroundView.bounds));
     [_secondBackgroundView addSubview:secondTutorialButton];
+
+    UIButton *resetTutorialsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [resetTutorialsButton setTitle:@"Reset all tutorials" forState:UIControlStateNormal];
+    resetTutorialsButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    [resetTutorialsButton addTarget:self action:@selector(_resetTutorials) forControlEvents:UIControlEventTouchUpInside];
+    [resetTutorialsButton sizeToFit];
+    CGRect bounds = resetTutorialsButton.bounds;
+    resetTutorialsButton.frame = CGRectMake(CGRectGetMaxX(self.view.bounds) - CGRectGetWidth(bounds) - 14.0,
+                                            CGRectGetMaxY(self.view.bounds) - CGRectGetHeight(bounds) - 14.0,
+                                            CGRectGetWidth(bounds), CGRectGetHeight(bounds));
+    [self.view addSubview:resetTutorialsButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
-    __weak typeof(self) weakSelf = self;
-    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerThirdTutorial afterDelay:0.0 withPredicate:^BOOL{
-        __strong typeof(self) strongSelf = weakSelf;
-        return strongSelf.scrollView.contentOffset.x >= CGRectGetWidth(strongSelf.view.bounds);
-    } constructionBlock:^(id<FLWTutorial> tutorial) {
-        __strong typeof(self) strongSelf = weakSelf;
-
-        UIView *buttonView = strongSelf.secondBackgroundView.subviews.firstObject;
-
-        tutorial.title = @"To complete this tutorial, tap the second button";
-        tutorial.successMessage = @"Perfect, have fun using the app";
-        tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial, FLWMainViewControllerSecondTutorial ];
-
-        tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
-    }];
-
-    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerSecondTutorial afterDelay:2.0 withPredicate:NULL constructionBlock:^(id<FLWTutorial> tutorial) {
-        __strong typeof(self) strongSelf = weakSelf;
-
-        tutorial.title = @"You can now swipe to the second page";
-        tutorial.successMessage = @"Excellent";
-        tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial ];
-
-        tutorial.gesture = [[FLWSwipeGesture alloc] initWithSwipeFromPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.8, CGRectGetMidY(strongSelf.view.bounds))
-                                                                   toPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.2, CGRectGetMidY(strongSelf.view.bounds))
-                                                                    inView:strongSelf.view];
-    }];
-
-    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerFirstTutorial afterDelay:2.0 withPredicate:^BOOL{
-        __strong typeof(self) strongSelf = weakSelf;
-        return strongSelf.scrollView.contentOffset.x <= 0.0;
-    } constructionBlock:^(id<FLWTutorial> tutorial) {
-        __strong typeof(self) strongSelf = weakSelf;
-
-        UIView *buttonView = strongSelf.firstBackgroundView.subviews.firstObject;
-
-        tutorial.title = @"To begin, you need to tap the first button";
-        tutorial.successMessage = @"Great";
-        tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
-    }];
+    [self _resetTutorials];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
-    [[FLWTutorialController sharedInstance] invalidateTutorialWithIdentifier:FLWMainViewControllerFirstTutorial];
-    [[FLWTutorialController sharedInstance] invalidateTutorialWithIdentifier:FLWMainViewControllerSecondTutorial];
+    [self _invalidateAllTutorials];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -184,6 +158,66 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
 - (void)_secondTutorialButtonTapped:(UIButton *)sender
 {
     [[FLWTutorialController sharedInstance] completeTutorialWithIdentifier:FLWMainViewControllerThirdTutorial];
+}
+
+- (void)_invalidateAllTutorials
+{
+    [[FLWTutorialController sharedInstance] invalidateTutorialWithIdentifier:FLWMainViewControllerFirstTutorial];
+    [[FLWTutorialController sharedInstance] invalidateTutorialWithIdentifier:FLWMainViewControllerSecondTutorial];
+    [[FLWTutorialController sharedInstance] invalidateTutorialWithIdentifier:FLWMainViewControllerThirdTutorial];
+}
+
+- (void)_resetTutorials
+{
+    [self _invalidateAllTutorials];
+
+    NSDictionary *dictionary = [NSUserDefaults standardUserDefaults].dictionaryRepresentation;
+
+    for (NSString *key in dictionary) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    __weak typeof(self) weakSelf = self;
+    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerThirdTutorial afterDelay:0.0 withPredicate:^BOOL{
+        __strong typeof(self) strongSelf = weakSelf;
+        return strongSelf.scrollView.contentOffset.x >= CGRectGetWidth(strongSelf.view.bounds);
+    } constructionBlock:^(id<FLWTutorial> tutorial) {
+        __strong typeof(self) strongSelf = weakSelf;
+
+        UIView *buttonView = strongSelf.secondBackgroundView.subviews.firstObject;
+
+        tutorial.title = @"To complete this tutorial, tap the second button";
+        tutorial.successMessage = @"Perfect, have fun using the app";
+        tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial, FLWMainViewControllerSecondTutorial ];
+
+        tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
+    }];
+
+    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerSecondTutorial afterDelay:2.0 withPredicate:NULL constructionBlock:^(id<FLWTutorial> tutorial) {
+        __strong typeof(self) strongSelf = weakSelf;
+
+        tutorial.title = @"You can now swipe to the second page";
+        tutorial.successMessage = @"Excellent";
+        tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial ];
+
+        tutorial.gesture = [[FLWSwipeGesture alloc] initWithSwipeFromPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.8, CGRectGetMidY(strongSelf.view.bounds))
+                                                                   toPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.2, CGRectGetMidY(strongSelf.view.bounds))
+                                                                    inView:strongSelf.view];
+    }];
+
+    [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerFirstTutorial afterDelay:2.0 withPredicate:^BOOL{
+        __strong typeof(self) strongSelf = weakSelf;
+        return strongSelf.scrollView.contentOffset.x <= 0.0;
+    } constructionBlock:^(id<FLWTutorial> tutorial) {
+        __strong typeof(self) strongSelf = weakSelf;
+
+        UIView *buttonView = strongSelf.firstBackgroundView.subviews.firstObject;
+
+        tutorial.title = @"To begin, you need to tap the first button";
+        tutorial.successMessage = @"Great";
+        tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
+    }];
 }
 
 @end

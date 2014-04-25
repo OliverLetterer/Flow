@@ -83,7 +83,8 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         return;
     }
 
-    if ([self _tutorialWithIdentifier:identifier]) {
+    _FLWTutorial *existingTutorial = [self _tutorialWithIdentifier:identifier];
+    if (existingTutorial && !existingTutorial.isTransitioningToFinish) {
         return;
     }
 
@@ -270,7 +271,6 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 {
     for (NSString *identifier in tutorial.dependentTutorialIdentifiers) {
         if (![self _hasCompletedTutorialWithIdentifier:identifier]) {
-            NSLog(@"tutorial %@ cannot start because of %@", tutorial, identifier);
             return NO;
         }
     }
