@@ -178,6 +178,8 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
 
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+
     __weak typeof(self) weakSelf = self;
     [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerThirdTutorial afterDelay:0.0 withPredicate:^BOOL{
         __strong typeof(self) strongSelf = weakSelf;
@@ -188,7 +190,7 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
         UIView *buttonView = strongSelf.secondBackgroundView.subviews.firstObject;
 
         tutorial.title = @"To complete this tutorial, tap the second button";
-        tutorial.successMessage = @"Perfect, have fun using the app";
+        tutorial.successMessage = @"Perfect, you can now start all over again";
         tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial, FLWMainViewControllerSecondTutorial ];
 
         tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
