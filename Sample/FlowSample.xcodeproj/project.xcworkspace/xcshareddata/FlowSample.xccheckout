@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>674EAD27-3A61-4A28-AFCD-C9E7C992B109</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FlowSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EA7CB693-7F35-4C7E-816C-2D4DDBEF6B17</key>
+		<string>ssh://github.com/OliverLetterer/Guia.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Sample/FlowSample/FlowSample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EA7CB693-7F35-4C7E-816C-2D4DDBEF6B17</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/OliverLetterer/Guia.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EA7CB693-7F35-4C7E-816C-2D4DDBEF6B17</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EA7CB693-7F35-4C7E-816C-2D4DDBEF6B17</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Guia</string>
+		</dict>
+	</array>
+</dict>
+</plist>
