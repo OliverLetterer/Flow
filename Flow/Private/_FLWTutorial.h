@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 @interface _FLWTutorial : NSObject <FLWTutorial>
 
 @property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, assign) CGFloat fadeOutProgress;
 
 @property (nonatomic, readonly) BOOL canStartTutorial;
 

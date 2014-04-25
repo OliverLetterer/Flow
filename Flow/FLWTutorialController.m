@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#warning sample project
+
 #import "FLWTutorialController.h"
 #import "_FLWTutorial.h"
 #import "_FLWTutorialOverlayView.h"
@@ -31,6 +33,7 @@
 #import "_FLWTutorialTouchIndicatorView.h"
 
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
+static CGFloat slideInAndOutDuration = 0.5;
 
 static NSString *globalIdentifierForIdentifier(NSString *identifier)
 {
@@ -249,6 +252,13 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     }
 
     [self.activeTutorial.gesture setProgress:fmod(progress, 1.0) onView:self.gestureView];
+
+    if (self.activeTutorial.isTransitioningToFinish) {
+        CGFloat fadeOutProgress = self.activeTutorial.fadeOutProgress + passedDuration / slideInAndOutDuration;
+        self.activeTutorial.fadeOutProgress = fadeOutProgress;
+
+        self.gestureView.alpha *= 1.0 - fadeOutProgress;
+    }
 }
 
 - (BOOL)_tutorialSatisfiesDependentTutorialIdentifiers:(_FLWTutorial *)tutorial
@@ -315,7 +325,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
     [self.activeTutorial.gesture setProgress:0.0 onView:self.gestureView];
 
-    [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
+    [UIView animateWithDuration:slideInAndOutDuration delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
         self.overlayView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         tutorial.isTransitioningToRunning = NO;
@@ -333,7 +343,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     }
 
     void(^nowPerformSlideOutAnimation)(void) = ^{
-        [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
+        [UIView animateWithDuration:slideInAndOutDuration delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
             self.overlayView.transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
         } completion:^(BOOL finished) {
             [self.overlayView removeFromSuperview];
@@ -356,7 +366,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     }
 
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn;
-    [UIView animateWithDuration:0.5 delay:0.0 options:options animations:^{
+    [UIView animateWithDuration:0.3 delay:0.0 options:options animations:^{
         if (success) {
             self.overlayView.backgroundColor = [UIColor colorWithRed:59.0 / 255.0 green:208.0 / 255.0 blue:82.0 / 255.0 alpha:1.0];
         }

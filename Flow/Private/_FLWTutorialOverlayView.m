@@ -173,7 +173,7 @@ static CGFloat crossFadeThreshold = 0.25;
 
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
     animationGroup.animations = @[ transformAnimation, fadeAnimation ];
-    animationGroup.duration = 0.5;
+    animationGroup.duration = 0.3;
     animationGroup.removedOnCompletion = YES;
 
     [self.progressView.layer addAnimation:animationGroup forKey:@"bounce"];

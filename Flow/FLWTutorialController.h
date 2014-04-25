@@ -26,9 +26,6 @@
 
 #import "FLWTouchGesture.h"
 
-#warning nice fade out transition for userinteraction or dismissal
-#warning sample project
-
 typedef BOOL(^FLWBlockPredicate)(void);
 
 
