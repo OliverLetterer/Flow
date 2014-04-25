@@ -156,9 +156,10 @@ static CGFloat crossFadeThreshold = 0.25;
 - (void)bounceProgressView
 {
     CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    transformAnimation.calculationMode = kCAAnimationCubic;
     transformAnimation.values = @[
                                   [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.3, 1.3, 1.0)],
-                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.85, 0.85, 1.0)],
+                                  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9, 0.9, 1.0)],
                                   [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)],
                                   ];
     transformAnimation.duration = 0.3;
