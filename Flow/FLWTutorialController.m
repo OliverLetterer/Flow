@@ -137,6 +137,11 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     }
 }
 
+- (void)resetTutorialWithIdentifier:(NSString *)identifier
+{
+    [self _setCompleted:NO forTutorialWithIdentifier:identifier];
+}
+
 #pragma mark - Initialization
 
 - (instancetype)init

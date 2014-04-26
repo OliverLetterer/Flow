@@ -71,6 +71,11 @@ typedef BOOL(^FLWBlockPredicate)(void);
  */
 - (void)completeTutorialWithIdentifier:(NSString *)identifier;
 
+/**
+ Resets a tutorial.
+ */
+- (void)resetTutorialWithIdentifier:(NSString *)identifier;
+
 @end
 
 
