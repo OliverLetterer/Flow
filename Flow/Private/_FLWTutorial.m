@@ -47,6 +47,15 @@
 
 #pragma mark - setters and getters
 
+- (void)setDependentTutorialIdentifiers:(NSArray *)dependentTutorialIdentifiers
+{
+    NSAssert(![dependentTutorialIdentifiers containsObject:self.identifier], @"dependentTutorialIdentifiers (%@) are unsatisfiable because the contain the tutorials identifier (%@)", dependentTutorialIdentifiers, self.identifier);
+
+    if (dependentTutorialIdentifiers != _dependentTutorialIdentifiers) {
+        _dependentTutorialIdentifiers = [dependentTutorialIdentifiers copy];
+    }
+}
+
 - (BOOL)canStartTutorial
 {
     if (self.state != FLWTutorialStateScheduled) {
