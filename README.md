@@ -4,7 +4,7 @@
 [![Platform](http://cocoapod-badges.herokuapp.com/p/Flow/badge.png)](http://cocoadocs.org/docsets/Flow)
 [![License Badge](https://go-shields.herokuapp.com/license-MIT-blue.png)](https://go-shields.herokuapp.com/license-MIT-blue.png)
 
-Flow is a Facebook Paper inspired tutorial framework to make users familiar with gesture based user interfaces. Watch the DEMO video here:
+Flow is a Facebook Paper inspired tutorial framework to make users familiar with gesture driven user interfaces. Watch the DEMO video here:
 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/UA2MJa2IGM8/0.jpg)](http://www.youtube.com/watch?v=UA2MJa2IGM8)
 
