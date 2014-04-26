@@ -132,6 +132,7 @@ static CGFloat crossFadeThreshold = 0.25;
         _textLabel.font = [UIFont systemFontOfSize:17.0];
         _textLabel.backgroundColor = [UIColor clearColor];
         _textLabel.numberOfLines = 0;
+        _textLabel.adjustsFontSizeToFitWidth = YES;
         [self addSubview:_textLabel];
 
         _progressView = [[_FLWTutorialOverlayViewProgressControl alloc] initWithFrame:CGRectZero];

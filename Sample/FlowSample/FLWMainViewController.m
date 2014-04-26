@@ -190,7 +190,7 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
         UIView *buttonView = strongSelf.secondBackgroundView.subviews.firstObject;
 
         tutorial.title = @"To complete this tutorial, tap the second button";
-        tutorial.successMessage = @"Perfect, you can now start all over again";
+        tutorial.successMessage = @"Congratulations, you can now start all over again";
         tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial, FLWMainViewControllerSecondTutorial ];
 
         tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
@@ -216,7 +216,7 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
 
         UIView *buttonView = strongSelf.firstBackgroundView.subviews.firstObject;
 
-        tutorial.title = @"To begin, you need to tap the first button";
+        tutorial.title = @"Welcome to the Flow playground. To begin, tap the first button";
         tutorial.successMessage = @"Great";
         tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
     }];
