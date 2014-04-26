@@ -6,6 +6,9 @@
 
 Flow is a Facebook Paper inspired tutorial framework to make users familiar with gesture based user interfaces.
 
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/UA2MJa2IGM8/0.jpg)](http://www.youtube.com/watch?v=UA2MJa2IGM8)
+
+
 ## Installation
 
 Flow is available through [CocoaPods](http://cocoapods.org), to install
