@@ -30,6 +30,8 @@
 #import "_FLWTutorialWindow.h"
 #import "_FLWTutorialTouchIndicatorView.h"
 
+#warning pause CADisplayLink if no tutorial can be completed due to dependentTutorialIdentifiers
+
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 static CGFloat slideInAndOutDuration = 0.5;
 
