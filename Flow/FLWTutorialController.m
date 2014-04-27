@@ -355,6 +355,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     if (success && self.activeTutorial.successMessage) {
         self.overlayView.textLabel.text = self.activeTutorial.successMessage;
         [self.activeTutorial speakText:self.activeTutorial.successMessage];
+
+        if (self.activeTutorial.completionHandler) {
+            self.activeTutorial.completionHandler();
+        }
     }
 
     void(^nowPerformSlideOutAnimation)(void) = ^{

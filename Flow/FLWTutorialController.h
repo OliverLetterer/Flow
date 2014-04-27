@@ -39,6 +39,7 @@ typedef BOOL(^FLWBlockPredicate)(void);
 @property (nonatomic, assign) BOOL speechSynthesisesDisabled;
 
 @property (nonatomic, copy) NSArray *dependentTutorialIdentifiers;
+@property (nonatomic, copy) void(^completionHandler)(void);
 
 @end
 
