@@ -111,7 +111,7 @@
 
 - (void)speakText:(NSString *)text
 {
-    if (self.speechSynthesisesDisabled) {
+    if (self.speechSynthesisesDisabled || text.length == 0) {
         return;
     }
     

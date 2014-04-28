@@ -378,6 +378,8 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.overlayView.progress = tutorial.progress;
     [containerView addSubview:self.overlayView];
 
+    self.overlayView.hidden = self.activeTutorial.title.length == 0;
+
     self.activeTutorial.gesture.containerView = containerView;
     self.activeTutorial.gesture.progress = 0.0;
 
@@ -393,7 +395,6 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 - (void)_finishActiveTutorialWithSuccess:(BOOL)success
 {
     self.activeTutorial.isTransitioningToFinish = YES;
-    self.overlayView.progress = success ? 1.0 : 0.0;
 
     if (success && self.activeTutorial.successMessage) {
         self.overlayView.textLabel.text = self.activeTutorial.successMessage;
