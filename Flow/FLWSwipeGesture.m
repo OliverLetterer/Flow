@@ -25,6 +25,7 @@
 //
 
 #import "FLWSwipeGesture.h"
+#import "_FLWTutorialTouchIndicatorView.h"
 
 typedef struct {
     CGFloat startFrame;
@@ -42,12 +43,23 @@ static CGPoint interpolatedPointBetweenPoints(CGPoint startPoint, CGPoint endPoi
     return CGPointMake(startPoint.x + progress * direction.x, startPoint.y + progress * direction.y);
 }
 
+@interface FLWSwipeGesture ()
+
+@property (nonatomic, strong) _FLWTutorialTouchIndicatorView *touchIndicatorView;
+
+@end
+
 
 
 @implementation FLWSwipeGesture
-@synthesize duration = _duration, progress = _progress;
+@synthesize duration = _duration, progress = _progress, containerView = _containerView;
 
 #pragma mark - setters and getters
+
+- (NSArray *)touchIndicatorViews
+{
+    return @[ self.touchIndicatorView ];
+}
 
 - (void)setSpeed:(CGFloat)speed
 {
@@ -56,6 +68,49 @@ static CGPoint interpolatedPointBetweenPoints(CGPoint startPoint, CGPoint endPoi
 
         CGFloat distance = sqrt(pow(self.endPoint.x - self.startPoint.x, 2.0) + pow(self.endPoint.y - self.startPoint.y, 2.0));
         self.duration = distance / _speed * 2.0;
+    }
+}
+
+- (_FLWTutorialTouchIndicatorView *)touchIndicatorView
+{
+    if (!_touchIndicatorView) {
+        _touchIndicatorView = [[_FLWTutorialTouchIndicatorView alloc] initWithFrame:CGRectZero];
+        [_touchIndicatorView sizeToFit];
+    }
+
+    return _touchIndicatorView;
+}
+
+- (void)setContainerView:(UIView *)containerView
+{
+    if (containerView != _containerView) {
+        _containerView = containerView;
+
+        [self.touchIndicatorView removeFromSuperview];
+        [_containerView addSubview:self.touchIndicatorView];
+    }
+}
+
+- (void)setProgress:(CGFloat)progress
+{
+    _progress = progress;
+
+    _SPLInterval fadeInInterval  = { 0.0, 0.1 };
+    _SPLInterval swipeInterval   = { fadeInInterval.startFrame + fadeInInterval.duration, 0.5 };
+    _SPLInterval hiddenInterval  = { swipeInterval.startFrame + swipeInterval.duration, 1.0 - (swipeInterval.startFrame + swipeInterval.duration) };
+
+    if (_SPLIntervalContainsFrame(hiddenInterval, _progress)) {
+        self.touchIndicatorView.alpha = 0.0;
+        self.touchIndicatorView.center = [self.view convertPoint:self.endPoint toView:self.touchIndicatorView.superview];
+    } else if (_SPLIntervalContainsFrame(fadeInInterval, _progress)) {
+        self.touchIndicatorView.alpha = 1.0 * (progress - fadeInInterval.startFrame) / fadeInInterval.duration;
+        self.touchIndicatorView.center = [self.view convertPoint:self.startPoint toView:self.touchIndicatorView.superview];
+    } else if (_SPLIntervalContainsFrame(swipeInterval, _progress)) {
+        CGFloat thisIntervalsProgress = (progress - swipeInterval.startFrame) / swipeInterval.duration;
+        CGPoint currentPoint = interpolatedPointBetweenPoints(self.startPoint, self.endPoint, thisIntervalsProgress);
+
+        self.touchIndicatorView.alpha = 1.0 - 1.0 * thisIntervalsProgress;
+        self.touchIndicatorView.center = [self.view convertPoint:currentPoint toView:self.touchIndicatorView.superview];
     }
 }
 
@@ -73,29 +128,9 @@ static CGPoint interpolatedPointBetweenPoints(CGPoint startPoint, CGPoint endPoi
     return self;
 }
 
-#pragma mark - FLWTouchGesture
-
-- (void)setProgress:(CGFloat)progress onView:(UIView *)view
+- (void)dealloc
 {
-    _progress = progress;
-
-    _SPLInterval fadeInInterval  = { 0.0, 0.1 };
-    _SPLInterval swipeInterval   = { fadeInInterval.startFrame + fadeInInterval.duration, 0.5 };
-    _SPLInterval hiddenInterval  = { swipeInterval.startFrame + swipeInterval.duration, 1.0 - (swipeInterval.startFrame + swipeInterval.duration) };
-
-    if (_SPLIntervalContainsFrame(hiddenInterval, _progress)) {
-        view.alpha = 0.0;
-        view.center = [self.view convertPoint:self.endPoint toView:view.superview];
-    } else if (_SPLIntervalContainsFrame(fadeInInterval, _progress)) {
-        view.alpha = 1.0 * (progress - fadeInInterval.startFrame) / fadeInInterval.duration;
-        view.center = [self.view convertPoint:self.startPoint toView:view.superview];
-    } else if (_SPLIntervalContainsFrame(swipeInterval, _progress)) {
-        CGFloat thisIntervalsProgress = (progress - swipeInterval.startFrame) / swipeInterval.duration;
-        CGPoint currentPoint = interpolatedPointBetweenPoints(self.startPoint, self.endPoint, thisIntervalsProgress);
-
-        view.alpha = 1.0 - 1.0 * thisIntervalsProgress;
-        view.center = [self.view convertPoint:currentPoint toView:view.superview];
-    }
+    [self.touchIndicatorView removeFromSuperview];
 }
 
 @end

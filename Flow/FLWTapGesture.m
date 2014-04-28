@@ -25,6 +25,7 @@
 //
 
 #import "FLWTapGesture.h"
+#import "_FLWTutorialTouchIndicatorView.h"
 
 typedef struct {
     CGFloat startFrame;
@@ -36,10 +37,65 @@ static inline BOOL _SPLIntervalContainsFrame(_SPLInterval interval, CGFloat fram
     return interval.startFrame <= frame && frame <= (interval.startFrame + interval.duration);
 }
 
+@interface FLWTapGesture ()
+
+@property (nonatomic, strong) _FLWTutorialTouchIndicatorView *touchIndicatorView;
+
+@end
+
 
 
 @implementation FLWTapGesture
-@synthesize duration = _duration, progress = _progress;
+@synthesize duration = _duration, progress = _progress, containerView = _containerView;
+
+#pragma mark - setters and getters
+
+- (NSArray *)touchIndicatorViews
+{
+    return @[ self.touchIndicatorView ];
+}
+
+- (_FLWTutorialTouchIndicatorView *)touchIndicatorView
+{
+    if (!_touchIndicatorView) {
+        _touchIndicatorView = [[_FLWTutorialTouchIndicatorView alloc] initWithFrame:CGRectZero];
+        [_touchIndicatorView sizeToFit];
+    }
+
+    return _touchIndicatorView;
+}
+
+- (void)setContainerView:(UIView *)containerView
+{
+    if (containerView != _containerView) {
+        _containerView = containerView;
+
+        [self.touchIndicatorView removeFromSuperview];
+        [_containerView addSubview:self.touchIndicatorView];
+    }
+}
+
+- (void)setProgress:(CGFloat)progress
+{
+    _progress = progress;
+
+    self.touchIndicatorView.center = [self.view convertPoint:self.touchPoint toView:self.touchIndicatorView.superview];
+
+    _SPLInterval fadeInInterval  = { 0.0, 0.1 };
+    _SPLInterval showInterval    = { fadeInInterval.startFrame + fadeInInterval.duration, 0.3 };
+    _SPLInterval fadeOutInterval = { showInterval.startFrame + showInterval.duration, 0.1 };
+    _SPLInterval hiddenInterval  = { fadeOutInterval.startFrame + fadeOutInterval.duration, 1.0 - (fadeOutInterval.startFrame + fadeOutInterval.duration) };
+
+    if (_SPLIntervalContainsFrame(hiddenInterval, _progress)) {
+        self.touchIndicatorView.alpha = 0.0;
+    } else if (_SPLIntervalContainsFrame(fadeInInterval, _progress)) {
+        self.touchIndicatorView.alpha = 1.0 * (progress - fadeInInterval.startFrame) / fadeInInterval.duration;
+    } else if (_SPLIntervalContainsFrame(showInterval, _progress)) {
+        self.touchIndicatorView.alpha = 1.0;
+    } else if (_SPLIntervalContainsFrame(fadeOutInterval, _progress)) {
+        self.touchIndicatorView.alpha = 1.0 - 1.0 * (progress - fadeOutInterval.startFrame) / fadeInInterval.duration;
+    }
+}
 
 #pragma mark - Initialization
 
@@ -54,28 +110,9 @@ static inline BOOL _SPLIntervalContainsFrame(_SPLInterval interval, CGFloat fram
     return self;
 }
 
-#pragma mark - FLWTouchGesture
-
-- (void)setProgress:(CGFloat)progress onView:(UIView *)view
+- (void)dealloc
 {
-    _progress = progress;
-
-    view.center = [self.view convertPoint:self.touchPoint toView:view.superview];
-
-    _SPLInterval fadeInInterval  = { 0.0, 0.1 };
-    _SPLInterval showInterval    = { fadeInInterval.startFrame + fadeInInterval.duration, 0.3 };
-    _SPLInterval fadeOutInterval = { showInterval.startFrame + showInterval.duration, 0.1 };
-    _SPLInterval hiddenInterval  = { fadeOutInterval.startFrame + fadeOutInterval.duration, 1.0 - (fadeOutInterval.startFrame + fadeOutInterval.duration) };
-
-    if (_SPLIntervalContainsFrame(hiddenInterval, _progress)) {
-        view.alpha = 0.0;
-    } else if (_SPLIntervalContainsFrame(fadeInInterval, _progress)) {
-        view.alpha = 1.0 * (progress - fadeInInterval.startFrame) / fadeInInterval.duration;
-    } else if (_SPLIntervalContainsFrame(showInterval, _progress)) {
-        view.alpha = 1.0;
-    } else if (_SPLIntervalContainsFrame(fadeOutInterval, _progress)) {
-        view.alpha = 1.0 - 1.0 * (progress - fadeOutInterval.startFrame) / fadeInInterval.duration;
-    }
+    [self.touchIndicatorView removeFromSuperview];
 }
 
 @end

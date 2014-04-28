@@ -28,9 +28,7 @@
 
 
 
-@interface _FLWTutorialTouchIndicatorView () {
-    
-}
+@interface _FLWTutorialTouchIndicatorView ()
 
 @end
 

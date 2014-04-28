@@ -27,11 +27,9 @@
 @protocol FLWTouchGesture <NSObject>
 
 @property (nonatomic, assign) CGFloat duration;
+@property (nonatomic, strong) UIView *containerView;
+@property (nonatomic, readonly) NSArray *touchIndicatorViews;
 
-@property (nonatomic, readonly) CGFloat progress;
-- (void)setProgress:(CGFloat)progress onView:(UIView *)view;
-
-@optional
-- (Class)gestureViewClass;
+@property (nonatomic, assign) CGFloat progress;
 
 @end

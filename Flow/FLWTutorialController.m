@@ -54,7 +54,6 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 @property (nonatomic, strong) _FLWTutorial *activeTutorial;
 @property (nonatomic, strong) _FLWTutorialOverlayView *overlayView;
-@property (nonatomic, strong) UIView *gestureView;
 
 @end
 
@@ -264,13 +263,15 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         progress = 1.0;
     }
 
-    [self.activeTutorial.gesture setProgress:fmod(progress, 1.0) onView:self.gestureView];
+    self.activeTutorial.gesture.progress = fmod(progress, 1.0);
 
     if (self.activeTutorial.isTransitioningToFinish) {
         CGFloat fadeOutProgress = self.activeTutorial.fadeOutProgress + passedDuration / slideInAndOutDuration;
         self.activeTutorial.fadeOutProgress = fadeOutProgress;
 
-        self.gestureView.alpha *= 1.0 - fadeOutProgress;
+        for (UIView *touchIndicatorView in self.activeTutorial.gesture.touchIndicatorViews) {
+            touchIndicatorView.alpha *= 1.0 - fadeOutProgress;
+        }
     }
 }
 
@@ -330,13 +331,8 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.overlayView.progress = tutorial.progress;
     [containerView addSubview:self.overlayView];
 
-    if (self.activeTutorial.gesture) {
-        self.gestureView = [self.activeTutorial.gesture respondsToSelector:@selector(gestureViewClass)] ? [[self.activeTutorial.gesture.gestureViewClass alloc] initWithFrame:CGRectZero] : [[_FLWTutorialTouchIndicatorView alloc] initWithFrame:CGRectZero];
-    }
-    [self.gestureView sizeToFit];
-    [containerView addSubview:self.gestureView];
-
-    [self.activeTutorial.gesture setProgress:0.0 onView:self.gestureView];
+    self.activeTutorial.gesture.containerView = containerView;
+    self.activeTutorial.gesture.progress = 0.0;
 
     [UIView animateWithDuration:slideInAndOutDuration delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
         self.overlayView.transform = CGAffineTransformIdentity;
@@ -368,12 +364,15 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
             [self.overlayView removeFromSuperview];
             self.overlayView = nil;
 
+            id<FLWTouchGesture> gesture = self.activeTutorial.gesture;
+
             self.activeTutorial.state = FLWTutorialStateFinished;
             [self.scheduledTutorials removeObject:self.activeTutorial];
             self.activeTutorial = nil;
 
-            [self.gestureView removeFromSuperview];
-            self.gestureView = nil;
+            for (UIView *view in gesture.touchIndicatorViews) {
+                [view removeFromSuperview];
+            }
 
             self.displayLink.frameInterval = 10;
             [self _numberOfTutorialsChanged];

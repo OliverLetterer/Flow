@@ -28,16 +28,16 @@
 
 
 
-@interface FLWCompoundGesture () {
-    
-}
+@interface FLWCompoundGesture ()
+
+@property (nonatomic, strong) NSArray *touchIndicatorViews;
 
 @end
 
 
 
 @implementation FLWCompoundGesture
-@synthesize progress = _progress;
+@synthesize progress = _progress, containerView = _containerView;
 
 #pragma mark - setters and getters
 
@@ -51,19 +51,18 @@
     [self doesNotRecognizeSelector:_cmd];
 }
 
-#pragma mark - Initialization
-
-- (instancetype)initWithGestures:(NSArray *)gestures
+- (void)setContainerView:(UIView *)containerView
 {
-    if (self = [super init]) {
-        _gestures = gestures;
+    if (containerView != _containerView) {
+        _containerView = containerView;
+
+        for (id<FLWTouchGesture> gesture in self.gestures) {
+            gesture.containerView = _containerView;
+        }
     }
-    return self;
 }
 
-#pragma mark - FLWTouchGesture
-
-- (void)setProgress:(CGFloat)progress onView:(UIView *)view
+- (void)setProgress:(CGFloat)progress
 {
     _progress = progress;
 
@@ -86,7 +85,19 @@
     CGFloat gestureEndProgress = (currentTimeOffset + interpolatingGesture.duration) / totalDuration;
 
     CGFloat gestureProgress = (progress - gestureStartProgress) / (gestureEndProgress - gestureStartProgress);
-    [interpolatingGesture setProgress:gestureProgress onView:view];
+    interpolatingGesture.progress = gestureProgress;
+
+    self.touchIndicatorViews = interpolatingGesture.touchIndicatorViews;
+}
+
+#pragma mark - Initialization
+
+- (instancetype)initWithGestures:(NSArray *)gestures
+{
+    if (self = [super init]) {
+        _gestures = gestures;
+    }
+    return self;
 }
 
 @end
