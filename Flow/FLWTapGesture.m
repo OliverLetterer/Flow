@@ -95,6 +95,10 @@ static inline BOOL _SPLIntervalContainsFrame(_SPLInterval interval, CGFloat fram
     } else if (_SPLIntervalContainsFrame(fadeOutInterval, _progress)) {
         self.touchIndicatorView.alpha = 1.0 - 1.0 * (progress - fadeOutInterval.startFrame) / fadeInInterval.duration;
     }
+
+    if (_progress == 0.0) {
+        self.touchIndicatorView.alpha = 0.0;
+    }
 }
 
 #pragma mark - Initialization

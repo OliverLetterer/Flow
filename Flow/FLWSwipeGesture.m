@@ -112,6 +112,10 @@ static CGPoint interpolatedPointBetweenPoints(CGPoint startPoint, CGPoint endPoi
         self.touchIndicatorView.alpha = 1.0 - 1.0 * thisIntervalsProgress;
         self.touchIndicatorView.center = [self.view convertPoint:currentPoint toView:self.touchIndicatorView.superview];
     }
+
+    if (_progress == 0.0) {
+        self.touchIndicatorView.alpha = 0.0;
+    }
 }
 
 #pragma mark - Initialization

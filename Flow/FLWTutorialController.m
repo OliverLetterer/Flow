@@ -428,6 +428,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     };
 
     if (success) {
+        self.overlayView.progress = 1.0;
         [self.overlayView bounceProgressView];
     }
 
