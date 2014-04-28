@@ -26,9 +26,23 @@
 
 #import "_FLWTutorialWindow.h"
 #import "_FLWTutorialOverlayView.h"
+#import <objc/runtime.h>
+
+static NSInteger numberOfWindowInstances = 0;
+
+static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSelector)
+{
+    Method origMethod = class_getInstanceMethod(class, originalSelector);
+    Method newMethod = class_getInstanceMethod(class, newSelector);
+    if(class_addMethod(class, originalSelector, method_getImplementation(newMethod), method_getTypeEncoding(newMethod))) {
+        class_replaceMethod(class, newSelector, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+    } else {
+        method_exchangeImplementations(origMethod, newMethod);
+    }
+}
 
 
-#warning forward setNeedsStatusBarUpdate
+
 @interface _FLWWindowRootViewController : UIViewController
 
 @end
@@ -67,11 +81,6 @@
 @end
 
 
-@interface _FLWTutorialWindow ()
-
-@end
-
-
 
 @implementation _FLWTutorialWindow
 
@@ -88,14 +97,45 @@
 
         UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
         [self makeKeyAndVisible], [keyWindow makeKeyAndVisible];
+
+        numberOfWindowInstances++;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    numberOfWindowInstances--;
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     UIView *hitTestView = [super hitTest:point withEvent:event];
     return [hitTestView isKindOfClass:[UIControl class]] || [hitTestView isKindOfClass:[_FLWTutorialOverlayView class]] ? hitTestView : nil;
+}
+
+@end
+
+
+
+@implementation UIViewController (Flow)
+
++ (void)load
+{
+    class_swizzleSelector(self, @selector(setNeedsStatusBarAppearanceUpdate), @selector(__FlowSetNeedsStatusBarAppearanceUpdate));
+}
+
+- (void)__FlowSetNeedsStatusBarAppearanceUpdate
+{
+    [self __FlowSetNeedsStatusBarAppearanceUpdate];
+
+    if (numberOfWindowInstances > 0 && self.isViewLoaded && self.view.window == [UIApplication sharedApplication].delegate.window) {
+        for (UIWindow *window in [UIApplication sharedApplication].windows) {
+            if ([window isKindOfClass:[_FLWTutorialWindow class]]) {
+                [window.rootViewController setNeedsStatusBarAppearanceUpdate];
+            }
+        }
+    }
 }
 
 @end
