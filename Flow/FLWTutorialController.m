@@ -30,8 +30,6 @@
 #import "_FLWTutorialWindow.h"
 #import "_FLWTutorialTouchIndicatorView.h"
 
-#warning pause CADisplayLink if no tutorial can be completed due to dependentTutorialIdentifiers
-
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 static CGFloat slideInAndOutDuration = 0.5;
 
@@ -94,6 +92,8 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     tutorial.remainingDuration = delay;
     tutorial.state = FLWTutorialStateScheduled;
     tutorial.constructionBlock = constructionBlock;
+
+    tutorial.constructionBlock(tutorial);
 
     [self.scheduledTutorials addObject:tutorial];
     [self _numberOfTutorialsChanged];
@@ -183,9 +183,56 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     [[NSUserDefaults standardUserDefaults] setBool:completed forKey:globalIdentifierForIdentifier(identifier)];
 }
 
+- (BOOL)_remainingTutorialsAreAllInactiveAndCannotBeStarted
+{
+    if (self.scheduledTutorials == 0) {
+        return YES;
+    }
+
+    if (self.activeTutorial) {
+        return NO;
+    }
+
+    NSMutableArray *remainingTutorials = [self.scheduledTutorials mutableCopy];
+    NSMutableSet *unstartableTutorialIdentifiers = [NSMutableSet set];
+    NSMutableSet *scheduledTutorialIdentifiers = [NSMutableSet set];
+
+    for (_FLWTutorial *tutorial in self.scheduledTutorials) {
+        [scheduledTutorialIdentifiers addObject:tutorial.identifier];
+    }
+
+    BOOL unstartableTutorialIdentifiersDidChange = NO;
+    do {
+        unstartableTutorialIdentifiersDidChange = NO;
+
+        for (_FLWTutorial *tutorial in [remainingTutorials copy]) {
+            // this tutorial cannot be started if any of its dependencies is (unstartable) or (unscheduled and not completed)
+            if (tutorial.dependentTutorialIdentifiers.count == 0) {
+                [remainingTutorials removeObject:tutorial];
+                continue;
+            }
+
+            for (NSString *identifier in tutorial.dependentTutorialIdentifiers) {
+                BOOL dependencyIsUnstartable = [unstartableTutorialIdentifiers containsObject:identifier];
+                BOOL dependencyIsUnscheduledAndNotCompleted = ![scheduledTutorialIdentifiers containsObject:identifier] && ![self _hasCompletedTutorialWithIdentifier:identifier];
+
+                if (dependencyIsUnstartable || dependencyIsUnscheduledAndNotCompleted) {
+                    [remainingTutorials removeObject:tutorial];
+
+                    [unstartableTutorialIdentifiers addObject:tutorial.identifier];
+                    unstartableTutorialIdentifiersDidChange = YES;
+                    break;
+                }
+            }
+        }
+    } while (unstartableTutorialIdentifiersDidChange);
+
+    return unstartableTutorialIdentifiers.count == self.scheduledTutorials.count;
+}
+
 - (void)_numberOfTutorialsChanged
 {
-    self.displayLink.paused = self.scheduledTutorials.count == 0;
+    self.displayLink.paused = [self _remainingTutorialsAreAllInactiveAndCannotBeStarted] || self.scheduledTutorials.count == 0;
 
     if (self.displayLink.isPaused) {
         self.lastDisplayLinkCallback = 0.0;
