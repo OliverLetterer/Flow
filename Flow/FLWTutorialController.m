@@ -143,6 +143,19 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     [self _setCompleted:NO forTutorialWithIdentifier:identifier];
 }
 
+- (void)speakErrorMessage:(NSString *)errorMessage inTutorialWithIdentifier:(NSString *)identifier
+{
+    if (![self.activeTutorial.identifier isEqualToString:identifier]) {
+        return;
+    }
+
+    if (self.activeTutorial.isTransitioningToFinish) {
+        return;
+    }
+
+    [self.activeTutorial speakText:errorMessage];
+}
+
 #pragma mark - Initialization
 
 - (instancetype)init
@@ -284,7 +297,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         if (tutorial.predicate && !tutorial.predicate()) {
             continue;
         }
-        
+
         tutorial.remainingDuration -= passedDuration;
     }
 }
@@ -441,7 +454,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         if (!success && self.activeTutorial.isSpeeking) {
             [self.activeTutorial cancelSpeeking];
         }
-        
+
         if (self.activeTutorial.isSpeeking) {
             [self.activeTutorial executeBlockAfterCurrentSpeechFinished:nowPerformSlideOutAnimation];
         } else {
@@ -458,7 +471,7 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 @implementation FLWTutorialController (Singleton)
 
-+ (FLWTutorialController *)sharedInstance 
++ (FLWTutorialController *)sharedInstance
 {
     static FLWTutorialController *_instance = nil;
     

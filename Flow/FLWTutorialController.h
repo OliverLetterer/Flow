@@ -48,11 +48,11 @@ typedef BOOL(^FLWBlockPredicate)(void);
 /**
  @abstract  <#abstract comment#>
  */
-@interface FLWTutorialController : NSObject 
+@interface FLWTutorialController : NSObject
 
 /**
- Schedules a new tutorial if that tutorial is not already completed. 
- 
+ Schedules a new tutorial if that tutorial is not already completed.
+
  @param delay Is only counted down when predicate evaluates to true
  */
 - (void)scheduleTutorialWithIdentifier:(NSString *)identifier afterDelay:(NSTimeInterval)delay withPredicate:(FLWBlockPredicate)predicate constructionBlock:(void(^)(id<FLWTutorial> tutorial))constructionBlock;
@@ -76,6 +76,11 @@ typedef BOOL(^FLWBlockPredicate)(void);
  Resets a tutorial.
  */
 - (void)resetTutorialWithIdentifier:(NSString *)identifier;
+
+/**
+ Informs the user that he has made an error while executing the tutorial.
+ */
+- (void)speakErrorMessage:(NSString *)errorMessage inTutorialWithIdentifier:(NSString *)identifier;
 
 @end
 
