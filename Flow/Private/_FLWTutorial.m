@@ -61,7 +61,7 @@
         _repeatMessage = [repeatMessage copy];
 
         if (self.repeatInterval == 0.0) {
-            self.repeatInterval = 10.0;
+            self.repeatInterval = 20.0;
         }
     }
 }
