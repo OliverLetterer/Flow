@@ -36,6 +36,9 @@ typedef BOOL(^FLWBlockPredicate)(void);
 @property (nonatomic, copy) NSString *successMessage;
 @property (nonatomic, strong) id<FLWTouchGesture> gesture;
 
+@property (nonatomic, copy) NSString *repeatMessage;
+@property (nonatomic, assign) NSTimeInterval repeatInterval; // defaults to 10.0
+
 @property (nonatomic, assign) BOOL speechSynthesisesDisabled;
 
 @property (nonatomic, copy) NSArray *dependentTutorialIdentifiers;

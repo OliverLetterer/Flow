@@ -29,9 +29,7 @@
 
 
 
-@interface _FLWTutorial () <AVSpeechSynthesizerDelegate> {
-    NSMutableArray *_gestures;
-}
+@interface _FLWTutorial () <AVSpeechSynthesizerDelegate>
 
 @property (nonatomic, strong) AVSpeechSynthesizer *speechSynthesizer;
 @property (nonatomic, strong) dispatch_block_t speechCompletionBlock;
@@ -43,9 +41,30 @@
 
 
 @implementation _FLWTutorial
-@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers, speechSynthesisesDisabled = _speechSynthesisesDisabled, successMessage = _successMessage, completionHandler = _completionHandler;
+@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers, speechSynthesisesDisabled = _speechSynthesisesDisabled, successMessage = _successMessage, completionHandler = _completionHandler, repeatMessage = _repeatMessage, repeatInterval = _repeatInterval;
 
 #pragma mark - setters and getters
+
+- (void)setRepeatInterval:(NSTimeInterval)repeatInterval
+{
+    NSParameterAssert(repeatInterval >= 0.0);
+
+    if (repeatInterval != _repeatInterval) {
+        _repeatInterval = repeatInterval;
+        self.remainingTimeToRepeatMessage = _repeatInterval;
+    }
+}
+
+- (void)setRepeatMessage:(NSString *)repeatMessage
+{
+    if (repeatMessage != _repeatMessage) {
+        _repeatMessage = [repeatMessage copy];
+
+        if (self.repeatInterval == 0.0) {
+            self.repeatInterval = 10.0;
+        }
+    }
+}
 
 - (void)setDependentTutorialIdentifiers:(NSArray *)dependentTutorialIdentifiers
 {
@@ -75,7 +94,6 @@
 {
     if (self = [super init]) {
         _identifier = [identifier copy];
-        _gestures = [NSMutableArray array];
     }
     return self;
 }

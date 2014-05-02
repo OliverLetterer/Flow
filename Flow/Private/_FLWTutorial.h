@@ -44,6 +44,8 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 
 @property (nonatomic, readonly) BOOL canStartTutorial;
 
+@property (nonatomic, assign) NSTimeInterval remainingTimeToRepeatMessage;
+
 @property (nonatomic, assign) FLWTutorialState state;
 @property (nonatomic, assign) BOOL isTransitioningToRunning, isTransitioningToFinish;
 
@@ -55,8 +57,6 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 
 @property (nonatomic, copy) FLWBlockPredicate predicate;
 @property (nonatomic, copy) void(^constructionBlock)(id<FLWTutorial> tutorial);
-@property (nonatomic, readonly) NSArray *gestures;
-
 
 @property (nonatomic, readonly) BOOL isSpeeking;
 - (void)speakText:(NSString *)text;

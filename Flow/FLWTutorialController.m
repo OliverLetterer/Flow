@@ -29,15 +29,72 @@
 #import "_FLWTutorialOverlayView.h"
 #import "_FLWTutorialWindow.h"
 #import "_FLWTutorialTouchIndicatorView.h"
+#import <objc/runtime.h>
 
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 static CGFloat slideInAndOutDuration = 0.5;
+
+static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSelector)
+{
+    Method origMethod = class_getInstanceMethod(class, originalSelector);
+    Method newMethod = class_getInstanceMethod(class, newSelector);
+    if(class_addMethod(class, originalSelector, method_getImplementation(newMethod), method_getTypeEncoding(newMethod))) {
+        class_replaceMethod(class, newSelector, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+    } else {
+        method_exchangeImplementations(origMethod, newMethod);
+    }
+}
 
 static NSString *globalIdentifierForIdentifier(NSString *identifier)
 {
     NSCParameterAssert(identifier);
     return [NSString stringWithFormat:@"FLWTutorialController.%@", identifier];
 }
+
+@interface UIApplication (FLWTutorialController)
+@property (nonatomic, readonly, getter = flw_numberOfActiveTouches) NSInteger numberOfActiveTouches;
+@end
+
+@implementation UIApplication (FLWTutorialController)
+
+- (NSInteger)flw_numberOfActiveTouches
+{
+    return [objc_getAssociatedObject(self, @selector(flw_numberOfActiveTouches)) integerValue];
+}
+
++ (void)load
+{
+    class_swizzleSelector(self, @selector(sendEvent:), @selector(__FLWTutorialControllerSendEvent:));
+}
+
+- (void)__FLWTutorialControllerSendEvent:(UIEvent *)event
+{
+    [self __FLWTutorialControllerSendEvent:event];
+
+    if (event.type != UIEventTypeTouches) {
+        return;
+    }
+
+    NSInteger numberOfActiveTouches = self.numberOfActiveTouches;
+    for (UITouch *touch in event.allTouches) {
+        switch (touch.phase) {
+            case UITouchPhaseBegan:
+                numberOfActiveTouches++;
+                break;
+            case UITouchPhaseEnded:
+            case UITouchPhaseCancelled:
+                numberOfActiveTouches--;
+                break;
+            default:
+                break;
+        }
+    }
+
+    objc_setAssociatedObject(self, @selector(flw_numberOfActiveTouches),
+                             @(numberOfActiveTouches), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
 
 
 
@@ -324,6 +381,19 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     }
 
     self.activeTutorial.gesture.progress = fmod(progress, 1.0);
+
+    BOOL hasRepeatMessage = self.activeTutorial.repeatMessage.length > 0 && self.activeTutorial.repeatInterval > 0.0;
+    if (hasRepeatMessage) {
+        BOOL canDecrementRepeatTime = !self.activeTutorial.isTransitioningToFinish && !self.activeTutorial.isTransitioningToRunning && !self.activeTutorial.isSpeeking && [UIApplication sharedApplication].numberOfActiveTouches == 0;
+        if (canDecrementRepeatTime) {
+            self.activeTutorial.remainingTimeToRepeatMessage -= passedDuration;
+
+            if (self.activeTutorial.remainingTimeToRepeatMessage <= 0.0) {
+                self.activeTutorial.remainingTimeToRepeatMessage = self.activeTutorial.repeatInterval;
+                [self.activeTutorial speakText:self.activeTutorial.repeatMessage];
+            }
+        }
+    }
 
     if (self.activeTutorial.isTransitioningToFinish) {
         CGFloat fadeOutProgress = self.activeTutorial.fadeOutProgress + passedDuration / slideInAndOutDuration;
