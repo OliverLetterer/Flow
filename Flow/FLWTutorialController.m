@@ -202,15 +202,17 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 - (void)speakErrorMessage:(NSString *)errorMessage inTutorialWithIdentifier:(NSString *)identifier
 {
-    if (![self.activeTutorial.identifier isEqualToString:identifier]) {
-        return;
-    }
-
-    if (self.activeTutorial.isTransitioningToFinish) {
+    if (![self.activeTutorial.identifier isEqualToString:identifier] || self.activeTutorial.isTransitioningToFinish) {
         return;
     }
 
     [self.activeTutorial speakText:errorMessage];
+    self.overlayView.textLabel.text = errorMessage;
+}
+
+- (BOOL)isRunningTutorialWithIdentifier:(NSString *)identifier
+{
+    return [self.activeTutorial.identifier isEqualToString:identifier] && !self.activeTutorial.isTransitioningToFinish;
 }
 
 #pragma mark - Initialization

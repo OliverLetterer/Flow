@@ -85,6 +85,11 @@ typedef BOOL(^FLWBlockPredicate)(void);
  */
 - (void)speakErrorMessage:(NSString *)errorMessage inTutorialWithIdentifier:(NSString *)identifier;
 
+/**
+ Returns YES if the tutorial with `identifier` is currently running.
+ */
+- (BOOL)isRunningTutorialWithIdentifier:(NSString *)identifier;
+
 @end
 
 
