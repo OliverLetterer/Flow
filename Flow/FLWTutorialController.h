@@ -32,6 +32,8 @@ typedef BOOL(^FLWBlockPredicate)(void);
 
 @protocol FLWTutorial <NSObject>
 
+@property (nonatomic, assign) BOOL respectsSilentSwitch; // defaults to no
+
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *successMessage;
 @property (nonatomic, strong) id<FLWTouchGesture> gesture;

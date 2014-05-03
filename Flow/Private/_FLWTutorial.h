@@ -55,6 +55,8 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 
 @property (nonatomic, assign) NSTimeInterval remainingDuration;
 
+@property (nonatomic, copy) NSString *previousAudioSessionCategory;
+
 @property (nonatomic, copy) FLWBlockPredicate predicate;
 @property (nonatomic, copy) void(^constructionBlock)(id<FLWTutorial> tutorial);
 

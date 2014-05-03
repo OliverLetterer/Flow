@@ -30,6 +30,7 @@
 #import "_FLWTutorialWindow.h"
 #import "_FLWTutorialTouchIndicatorView.h"
 #import <objc/runtime.h>
+#import <AVFoundation/AVFoundation.h>
 
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 static CGFloat slideInAndOutDuration = 0.5;
@@ -444,6 +445,12 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         return NO;
     }
 
+    if (!tutorial.respectsSilentSwitch) {
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        tutorial.previousAudioSessionCategory = audioSession.category;
+        [audioSession setCategory:AVAudioSessionCategoryPlayback error:NULL];
+    }
+
     NSParameterAssert(self.activeTutorial == nil);
     self.activeTutorial = tutorial;
     self.activeTutorial.state = FLWTutorialStateRunning;
@@ -498,6 +505,11 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
             self.overlayView = nil;
 
             id<FLWTouchGesture> gesture = self.activeTutorial.gesture;
+
+            if (!self.activeTutorial.respectsSilentSwitch) {
+                AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+                [audioSession setCategory:self.activeTutorial.previousAudioSessionCategory error:NULL];
+            }
 
             self.activeTutorial.state = FLWTutorialStateFinished;
             [self.scheduledTutorials removeObject:self.activeTutorial];
