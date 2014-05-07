@@ -50,6 +50,11 @@ extern NSString * const FLWTutorialControllerTutorialKey;
 
 
 
+/**
+ Will plan one of many random success messages when assigned to FLWTutorial.successMessage.
+ */
+extern NSString * const FLWTutorialRandomSuccessMessage;
+
 @protocol FLWTutorial <NSObject>
 
 @property (nonatomic, assign) BOOL respectsSilentSwitch; // defaults to no

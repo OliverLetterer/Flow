@@ -37,6 +37,8 @@ NSString * const FLWTutorialControllerDidCompleteTutorialNotification = @"FLWTut
 NSString * const FLWTutorialControllerDidCancelTutorialNotification = @"FLWTutorialControllerDidCancelTutorialNotification";
 NSString * const FLWTutorialControllerTutorialKey = @"FLWTutorialControllerTutorialKey";
 
+NSString * const FLWTutorialRandomSuccessMessage = @"FLWTutorialRandomSuccessMessage";
+
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 static CGFloat slideInAndOutDuration = 0.5;
 
@@ -55,6 +57,17 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 {
     NSCParameterAssert(identifier);
     return [NSString stringWithFormat:@"FLWTutorialController.%@", identifier];
+}
+
+static void shuffleArray(NSMutableArray *array)
+{
+    NSInteger count = array.count;
+
+    for (NSUInteger i = 0; i < count; i++) {
+        NSInteger nElements = count - i;
+        NSInteger n = arc4random_uniform((uint32_t)nElements) + i;
+        [array exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
 }
 
 @interface UIApplication (FLWTutorialController)
@@ -106,6 +119,8 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
 @interface FLWTutorialController () <_FLWTutorialOverlayViewDelegate>
 
+@property (nonatomic, strong) NSMutableArray *randomSuccessMessages;
+
 @property (nonatomic, strong) _FLWTutorialWindow *window;
 
 @property (nonatomic, strong) CADisplayLink *displayLink;
@@ -125,6 +140,23 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 @implementation FLWTutorialController
 
 #pragma mark - Instance methods
+
+- (NSMutableArray *)randomSuccessMessages
+{
+    if (!_randomSuccessMessages) {
+        _randomSuccessMessages = @[
+                                   NSLocalizedString(@"Great", @""),
+                                   NSLocalizedString(@"Magnificent", @""),
+                                   NSLocalizedString(@"Perfect", @""),
+                                   NSLocalizedString(@"Excellent", @""),
+                                   NSLocalizedString(@"Very well", @""),
+                                   ].mutableCopy;
+
+        shuffleArray(_randomSuccessMessages);
+    }
+
+    return _randomSuccessMessages;
+}
 
 - (void)setProgress:(CGFloat)progress inTutorialWithIdentifier:(NSString *)identifier
 {
@@ -508,6 +540,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     self.activeTutorial.isTransitioningToFinish = YES;
 
     if (success && self.activeTutorial.successMessage) {
+        if ([self.activeTutorial.successMessage isEqualToString:FLWTutorialRandomSuccessMessage]) {
+            self.activeTutorial.successMessage = [self _popRandomSuccessMessage];
+        }
+
         self.overlayView.textLabel.text = self.activeTutorial.successMessage;
         [self.activeTutorial speakText:self.activeTutorial.successMessage];
 
@@ -572,6 +608,15 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
             nowPerformSlideOutAnimation();
         }
     }];
+}
+
+- (NSString *)_popRandomSuccessMessage
+{
+    NSString *randomSuccessMessage = self.randomSuccessMessages.firstObject;
+    [self.randomSuccessMessages removeObjectAtIndex:0];
+    [self.randomSuccessMessages addObject:randomSuccessMessage];
+
+    return randomSuccessMessage;
 }
 
 @end
