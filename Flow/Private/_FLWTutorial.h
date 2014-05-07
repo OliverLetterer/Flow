@@ -49,8 +49,6 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 @property (nonatomic, assign) FLWTutorialState state;
 @property (nonatomic, assign) BOOL isTransitioningToRunning, isTransitioningToFinish;
 
-@property (nonatomic, readonly) NSString *identifier;
-
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 
 @property (nonatomic, assign) NSTimeInterval remainingDuration;

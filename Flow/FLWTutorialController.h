@@ -28,11 +28,33 @@
 
 typedef BOOL(^FLWBlockPredicate)(void);
 
+/**
+ Sent right before FLWTutorialController will start a new tutorial.
+ */
+extern NSString * const FLWTutorialControllerWillStartTutorialNotification;
+
+/**
+ Sent after the the user completed a tutorial.
+ */
+extern NSString * const FLWTutorialControllerDidCompleteTutorialNotification;
+
+/**
+ Sent after a tutorial got cancelled.
+ */
+extern NSString * const FLWTutorialControllerDidCancelTutorialNotification;
+
+/**
+ userInfo key where an instance of id<FLWTutorial> is available.
+ */
+extern NSString * const FLWTutorialControllerTutorialKey;
+
 
 
 @protocol FLWTutorial <NSObject>
 
 @property (nonatomic, assign) BOOL respectsSilentSwitch; // defaults to no
+
+@property (nonatomic, readonly) NSString *identifier;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *successMessage;

@@ -32,6 +32,11 @@
 #import <objc/runtime.h>
 #import <AVFoundation/AVFoundation.h>
 
+NSString * const FLWTutorialControllerWillStartTutorialNotification = @"FLWTutorialControllerWillStartTutorialNotification";;
+NSString * const FLWTutorialControllerDidCompleteTutorialNotification = @"FLWTutorialControllerDidCompleteTutorialNotification";
+NSString * const FLWTutorialControllerDidCancelTutorialNotification = @"FLWTutorialControllerDidCancelTutorialNotification";
+NSString * const FLWTutorialControllerTutorialKey = @"FLWTutorialControllerTutorialKey";
+
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 static CGFloat slideInAndOutDuration = 0.5;
 
@@ -162,6 +167,9 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
     NSParameterAssert([NSThread currentThread].isMainThread);
 
     _FLWTutorial *tutorial = [self _tutorialWithIdentifier:identifier];
+    if (!tutorial) {
+        return;
+    }
 
     if (tutorial.state == FLWTutorialStateRunning) {
         if (tutorial.isTransitioningToFinish) {
@@ -172,6 +180,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         }
     } else {
         [self.scheduledTutorials removeObject:tutorial];
+
+        NSDictionary *userInfo = @{ FLWTutorialControllerTutorialKey: tutorial };
+        [[NSNotificationCenter defaultCenter] postNotificationName:FLWTutorialControllerDidCancelTutorialNotification object:self userInfo:userInfo];
+
         [self _numberOfTutorialsChanged];
     }
 }
@@ -182,6 +194,10 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
 
     [self _setCompleted:YES forTutorialWithIdentifier:identifier];
     _FLWTutorial *tutorial = [self _tutorialWithIdentifier:identifier];
+
+    if (!tutorial) {
+        return;
+    }
 
     if (tutorial.state == FLWTutorialStateRunning) {
         if (tutorial.isTransitioningToFinish) {
@@ -445,6 +461,9 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
         return NO;
     }
 
+    NSDictionary *userInfo = @{ FLWTutorialControllerTutorialKey: tutorial };
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLWTutorialControllerWillStartTutorialNotification object:self userInfo:userInfo];
+
     if (!tutorial.respectsSilentSwitch) {
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         tutorial.previousAudioSessionCategory = audioSession.category;
@@ -511,12 +530,20 @@ static NSString *globalIdentifierForIdentifier(NSString *identifier)
                 [audioSession setCategory:self.activeTutorial.previousAudioSessionCategory error:NULL];
             }
 
+            id<FLWTutorial> activeTutorial = self.activeTutorial;
             self.activeTutorial.state = FLWTutorialStateFinished;
             [self.scheduledTutorials removeObject:self.activeTutorial];
             self.activeTutorial = nil;
 
             for (UIView *view in gesture.touchIndicatorViews) {
                 [view removeFromSuperview];
+            }
+
+            NSDictionary *userInfo = @{ FLWTutorialControllerTutorialKey: activeTutorial };
+            if (success) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:FLWTutorialControllerDidCompleteTutorialNotification object:self userInfo:userInfo];
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:FLWTutorialControllerDidCancelTutorialNotification object:self userInfo:userInfo];
             }
 
             self.displayLink.frameInterval = 10;
