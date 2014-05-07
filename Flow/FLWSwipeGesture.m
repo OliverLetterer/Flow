@@ -67,7 +67,17 @@ static CGPoint interpolatedPointBetweenPoints(CGPoint startPoint, CGPoint endPoi
         _speed = speed;
 
         CGFloat distance = sqrt(pow(self.endPoint.x - self.startPoint.x, 2.0) + pow(self.endPoint.y - self.startPoint.y, 2.0));
-        self.duration = distance / _speed * 2.0;
+        _duration = distance / _speed * 2.0;
+    }
+}
+
+- (void)setDuration:(CGFloat)duration
+{
+    if (duration != _duration) {
+        _duration = duration;
+
+        CGFloat distance = sqrt(pow(self.endPoint.x - self.startPoint.x, 2.0) + pow(self.endPoint.y - self.startPoint.y, 2.0));
+        _speed = distance / _duration;
     }
 }
 
