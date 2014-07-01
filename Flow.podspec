@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'Flow'
-  spec.version      = '1.2.0'
+  spec.version      = '1.3.0'
   spec.platform     = :ios, '7.0'
   spec.license      = 'MIT'
   spec.source       = { :git => 'https://github.com/OliverLetterer/Flow.git', :tag => spec.version.to_s }
@@ -11,6 +11,6 @@ Pod::Spec.new do |spec|
   spec.author       = { 'Oliver Letterer' => 'oliver.letterer@gmail.com' }
   spec.source_files = 'Flow/*.{h,m}', 'Flow/**/*.{h,m}'
   spec.resources    = "Resources/*.png"
-  
+
   spec.social_media_url = 'https://twitter.com/oletterer'
 end
