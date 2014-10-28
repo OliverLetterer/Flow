@@ -49,17 +49,7 @@ static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSele
 
 @implementation _FLWWindowRootViewController
 
-- (NSUInteger)supportedInterfaceOrientations
-{
-    UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    while (rootViewController.presentedViewController) {
-        rootViewController = rootViewController.presentedViewController;
-    }
-
-    return rootViewController.supportedInterfaceOrientations;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
+- (UIViewController *)rootViewController
 {
     UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
     while (rootViewController.presentedViewController) {
@@ -75,7 +65,27 @@ static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSele
         rootViewController = nextViewController;
     }
 
-    return rootViewController.preferredStatusBarStyle;
+    return rootViewController;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    while (rootViewController.presentedViewController) {
+        rootViewController = rootViewController.presentedViewController;
+    }
+
+    return rootViewController.supportedInterfaceOrientations;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return [[self rootViewController] preferredStatusBarStyle];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return [[self rootViewController] prefersStatusBarHidden];
 }
 
 @end
