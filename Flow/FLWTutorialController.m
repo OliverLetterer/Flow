@@ -41,6 +41,7 @@ NSString * const FLWTutorialRandomSuccessMessage = @"FLWTutorialRandomSuccessMes
 
 static CGFloat preferredTutorialHeight = 44.0 + 20.0;
 static CGFloat slideInAndOutDuration = 0.5;
+static CGFloat slideOutDelay = 1.0;
 
 static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSelector)
 {
@@ -187,6 +188,12 @@ static void shuffleArray(NSMutableArray *array)
     tutorial.remainingDuration = delay;
     tutorial.state = FLWTutorialStateScheduled;
     tutorial.constructionBlock = constructionBlock;
+  
+    tutorial.backgroundColor = [UIColor colorWithRed:53.0 / 255.0 green:142.0 / 255.0 blue:244.0 / 255.0 alpha:1.0];
+    tutorial.successColor = [UIColor colorWithRed:59.0 / 255.0 green:208.0 / 255.0 blue:82.0 / 255.0 alpha:1.0];
+  
+    tutorial.slideInAndOutDuration = slideInAndOutDuration;
+    tutorial.slideOutDelay = slideOutDelay;
 
     tutorial.constructionBlock(tutorial);
 
@@ -447,7 +454,7 @@ static void shuffleArray(NSMutableArray *array)
     }
 
     if (self.activeTutorial.isTransitioningToFinish) {
-        CGFloat fadeOutProgress = self.activeTutorial.fadeOutProgress + passedDuration / slideInAndOutDuration;
+        CGFloat fadeOutProgress = self.activeTutorial.fadeOutProgress + passedDuration / self.activeTutorial.slideInAndOutDuration;
         self.activeTutorial.fadeOutProgress = fadeOutProgress;
 
         for (UIView *touchIndicatorView in self.activeTutorial.gesture.touchIndicatorViews) {
@@ -519,6 +526,7 @@ static void shuffleArray(NSMutableArray *array)
     self.overlayView.textLabel.text = self.activeTutorial.title;
     self.overlayView.transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
     self.overlayView.progress = tutorial.progress;
+    self.overlayView.backgroundColor = tutorial.backgroundColor;
     [containerView addSubview:self.overlayView];
 
     self.overlayView.hidden = self.activeTutorial.title.length == 0;
@@ -526,7 +534,7 @@ static void shuffleArray(NSMutableArray *array)
     self.activeTutorial.gesture.containerView = containerView;
     self.activeTutorial.gesture.progress = 0.0;
 
-    [UIView animateWithDuration:slideInAndOutDuration delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
+    [UIView animateWithDuration:self.activeTutorial.slideInAndOutDuration delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
         self.overlayView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         tutorial.isTransitioningToRunning = NO;
@@ -553,7 +561,7 @@ static void shuffleArray(NSMutableArray *array)
     }
 
     void(^nowPerformSlideOutAnimation)(void) = ^{
-        [UIView animateWithDuration:slideInAndOutDuration delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
+        [UIView animateWithDuration:self.activeTutorial.slideInAndOutDuration delay:self.activeTutorial.slideOutDelay usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
             self.overlayView.transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
         } completion:^(BOOL finished) {
             [self.overlayView removeFromSuperview];
@@ -595,7 +603,7 @@ static void shuffleArray(NSMutableArray *array)
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn;
     [UIView animateWithDuration:0.3 delay:0.0 options:options animations:^{
         if (success) {
-            self.overlayView.backgroundColor = [UIColor colorWithRed:59.0 / 255.0 green:208.0 / 255.0 blue:82.0 / 255.0 alpha:1.0];
+            self.overlayView.backgroundColor = self.activeTutorial.successColor;
         }
     } completion:^(BOOL finished) {
         if (!success && self.activeTutorial.isSpeeking) {
