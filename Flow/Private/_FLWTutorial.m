@@ -41,7 +41,7 @@
 
 
 @implementation _FLWTutorial
-@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers, speechSynthesisesDisabled = _speechSynthesisesDisabled, successMessage = _successMessage, completionHandler = _completionHandler, repeatMessage = _repeatMessage, repeatInterval = _repeatInterval, respectsSilentSwitch = _respectsSilentSwitch, identifier = _identifier;
+@synthesize title = _title, gesture = _gesture, dependentTutorialIdentifiers = _dependentTutorialIdentifiers, speechSynthesisesDisabled = _speechSynthesisesDisabled, successMessage = _successMessage, completionHandler = _completionHandler, repeatMessage = _repeatMessage, repeatInterval = _repeatInterval, respectsSilentSwitch = _respectsSilentSwitch, identifier = _identifier, backgroundColor = _backgroundColor, successColor = _successColor, slideInAndOutDuration = _slideInAndOutDuration, slideOutDelay = _slideOutDelay;
 
 #pragma mark - setters and getters
 
@@ -138,7 +138,7 @@
     }
 
     AVSpeechUtterance *speechUtterance = [AVSpeechUtterance speechUtteranceWithString:text];
-    speechUtterance.rate = (AVSpeechUtteranceDefaultSpeechRate + AVSpeechUtteranceMinimumSpeechRate) / 2.0;
+    speechUtterance.rate = 0.25 * AVSpeechUtteranceDefaultSpeechRate + 0.75 * AVSpeechUtteranceMinimumSpeechRate;
 
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     self.speechSynthesizer.delegate = self;

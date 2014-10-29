@@ -58,7 +58,7 @@
     
     UIColor *fillColor = [UIColor colorWithWhite:1.0 alpha:0.8];
     UIColor *strokeColor = [UIColor whiteColor];
-    UIColor *shadowColor = [UIColor colorWithRed:53.0 / 255.0 green:142.0 / 255.0 blue:244.0 / 255.0 alpha:1.0];
+    UIColor *shadowColor = self.tintColor;
 
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:UIEdgeInsetsInsetRect(rect, UIEdgeInsetsMake(shadowSize, shadowSize, shadowSize, shadowSize))];
 

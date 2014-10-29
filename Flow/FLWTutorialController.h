@@ -65,6 +65,12 @@ extern NSString * const FLWTutorialRandomSuccessMessage;
 @property (nonatomic, copy) NSString *successMessage;
 @property (nonatomic, strong) id<FLWTouchGesture> gesture;
 
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *successColor;
+
+@property (nonatomic, assign) CGFloat slideInAndOutDuration;
+@property (nonatomic, assign) CGFloat slideOutDelay;
+
 @property (nonatomic, copy) NSString *repeatMessage;
 @property (nonatomic, assign) NSTimeInterval repeatInterval; // defaults to 20.0
 
