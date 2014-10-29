@@ -138,7 +138,7 @@
     }
 
     AVSpeechUtterance *speechUtterance = [AVSpeechUtterance speechUtteranceWithString:text];
-    speechUtterance.rate = (AVSpeechUtteranceDefaultSpeechRate + AVSpeechUtteranceMinimumSpeechRate) / 2.0;
+    speechUtterance.rate = 0.25 * AVSpeechUtteranceDefaultSpeechRate + 0.75 * AVSpeechUtteranceMinimumSpeechRate;
 
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     self.speechSynthesizer.delegate = self;

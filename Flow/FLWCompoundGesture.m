@@ -37,7 +37,7 @@
 
 
 @implementation FLWCompoundGesture
-@synthesize progress = _progress, containerView = _containerView;
+@synthesize progress = _progress, containerView = _containerView, tintColor = _tintColor;
 
 #pragma mark - setters and getters
 
