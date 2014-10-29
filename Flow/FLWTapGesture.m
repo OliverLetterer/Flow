@@ -46,7 +46,7 @@ static inline BOOL _SPLIntervalContainsFrame(_SPLInterval interval, CGFloat fram
 
 
 @implementation FLWTapGesture
-@synthesize duration = _duration, progress = _progress, containerView = _containerView;
+@synthesize duration = _duration, progress = _progress, containerView = _containerView, tintColor = _tintColor;
 
 #pragma mark - setters and getters
 
@@ -59,6 +59,7 @@ static inline BOOL _SPLIntervalContainsFrame(_SPLInterval interval, CGFloat fram
 {
     if (!_touchIndicatorView) {
         _touchIndicatorView = [[_FLWTutorialTouchIndicatorView alloc] initWithFrame:CGRectZero];
+        _touchIndicatorView.tintColor = self.tintColor;
         [_touchIndicatorView sizeToFit];
     }
 

@@ -52,7 +52,7 @@ static CGPoint interpolatedPointBetweenPoints(CGPoint startPoint, CGPoint endPoi
 
 
 @implementation FLWSwipeGesture
-@synthesize duration = _duration, progress = _progress, containerView = _containerView;
+@synthesize duration = _duration, progress = _progress, containerView = _containerView, tintColor = _tintColor;
 
 #pragma mark - setters and getters
 
@@ -85,6 +85,7 @@ static CGPoint interpolatedPointBetweenPoints(CGPoint startPoint, CGPoint endPoi
 {
     if (!_touchIndicatorView) {
         _touchIndicatorView = [[_FLWTutorialTouchIndicatorView alloc] initWithFrame:CGRectZero];
+        _touchIndicatorView.tintColor = self.tintColor;
         [_touchIndicatorView sizeToFit];
     }
 
