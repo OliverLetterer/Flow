@@ -1,8 +1,8 @@
 # Flow
 
-[![Version](http://cocoapod-badges.herokuapp.com/v/Flow/badge.png)](http://cocoadocs.org/docsets/Flow)
-[![Platform](http://cocoapod-badges.herokuapp.com/p/Flow/badge.png)](http://cocoadocs.org/docsets/Flow)
-[![License Badge](https://go-shields.herokuapp.com/license-MIT-blue.png)](https://go-shields.herokuapp.com/license-MIT-blue.png)
+[![Version](https://img.shields.io/cocoapods/v/Flow.svg?style=flat)](http://cocoadocs.org/docsets/Flow)
+[![License](https://img.shields.io/cocoapods/l/Flow.svg?style=flat)](http://cocoadocs.org/docsets/Flow)
+[![Platform](https://img.shields.io/cocoapods/p/Flow.svg?style=flat)](http://cocoadocs.org/docsets/Flow)
 
 Flow is a Facebook Paper inspired tutorial framework to make users familiar with gesture driven user interfaces. Watch the DEMO video here:
 
