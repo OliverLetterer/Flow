@@ -191,6 +191,7 @@ static void shuffleArray(NSMutableArray *array)
   
     tutorial.backgroundColor = [UIColor colorWithRed:53.0 / 255.0 green:142.0 / 255.0 blue:244.0 / 255.0 alpha:1.0];
     tutorial.successColor = [UIColor colorWithRed:59.0 / 255.0 green:208.0 / 255.0 blue:82.0 / 255.0 alpha:1.0];
+    tutorial.font = [UIFont systemFontOfSize:17.0];
   
     tutorial.slideInAndOutDuration = slideInAndOutDuration;
     tutorial.slideOutDelay = slideOutDelay;
@@ -524,6 +525,7 @@ static void shuffleArray(NSMutableArray *array)
     self.overlayView.delegate = self;
     self.overlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.overlayView.textLabel.text = self.activeTutorial.title;
+    self.overlayView.textLabel.font = tutorial.font;
     self.overlayView.transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
     self.overlayView.progress = tutorial.progress;
     self.overlayView.backgroundColor = tutorial.backgroundColor;
