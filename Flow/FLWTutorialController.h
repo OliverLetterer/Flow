@@ -67,6 +67,7 @@ extern NSString * const FLWTutorialRandomSuccessMessage;
 
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, strong) UIColor *successColor;
+@property (nonatomic, strong) UIFont *font;
 
 @property (nonatomic, assign) CGFloat slideInAndOutDuration;
 @property (nonatomic, assign) CGFloat slideOutDelay;
