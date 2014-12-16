@@ -48,7 +48,13 @@ extern NSString * const FLWTutorialControllerDidCancelTutorialNotification;
  */
 extern NSString * const FLWTutorialControllerTutorialKey;
 
-
+/**
+ Decides if the tutorial view should show from the top or bottom of the screen
+ */
+typedef enum : NSUInteger {
+    FLWTutorialPositionTop = 0,
+    FLWTutorialPositionBottom = 1
+} FLWTutorialPosition;
 
 /**
  Will plan one of many random success messages when assigned to FLWTutorial.successMessage.
@@ -79,6 +85,8 @@ extern NSString * const FLWTutorialRandomSuccessMessage;
 
 @property (nonatomic, copy) NSArray *dependentTutorialIdentifiers;
 @property (nonatomic, copy) void(^completionHandler)(void);
+
+@property (nonatomic, assign) FLWTutorialPosition position;
 
 @end
 

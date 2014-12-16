@@ -184,6 +184,7 @@ static void shuffleArray(NSMutableArray *array)
     }
 
     _FLWTutorial *tutorial = [[_FLWTutorial alloc] initWithIdentifier:identifier];
+    tutorial.position = FLWTutorialPositionTop;
     tutorial.predicate = predicate;
     tutorial.remainingDuration = delay;
     tutorial.state = FLWTutorialStateScheduled;
@@ -197,7 +198,7 @@ static void shuffleArray(NSMutableArray *array)
     tutorial.slideOutDelay = slideOutDelay;
 
     tutorial.constructionBlock(tutorial);
-
+    
     [self.scheduledTutorials addObject:tutorial];
     [self _numberOfTutorialsChanged];
 }
@@ -521,12 +522,21 @@ static void shuffleArray(NSMutableArray *array)
     UIView *containerView = self.window.rootViewController.view;
     static CGFloat additionalHeight = 50.0;
 
-    self.overlayView = [[_FLWTutorialOverlayView alloc] initWithFrame:CGRectMake(0.0, -additionalHeight, CGRectGetWidth(containerView.bounds), preferredTutorialHeight + additionalHeight)];
+    CGRect frame;
+    CGAffineTransform transform = [self _transformToHideTutorial:tutorial];
+    if(tutorial.position == FLWTutorialPositionTop){
+        frame = CGRectMake(0.0, -additionalHeight, CGRectGetWidth(containerView.bounds), preferredTutorialHeight + additionalHeight);
+    }
+    else if (tutorial.position == FLWTutorialPositionBottom){
+        frame = CGRectMake(0.0, containerView.frame.size.height - preferredTutorialHeight, CGRectGetWidth(containerView.bounds), preferredTutorialHeight);
+    }
+    
+    self.overlayView = [[_FLWTutorialOverlayView alloc] initWithFrame:frame];
     self.overlayView.delegate = self;
     self.overlayView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.overlayView.textLabel.text = self.activeTutorial.title;
     self.overlayView.textLabel.font = tutorial.font;
-    self.overlayView.transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
+    self.overlayView.transform = transform;
     self.overlayView.progress = tutorial.progress;
     self.overlayView.backgroundColor = tutorial.backgroundColor;
     [containerView addSubview:self.overlayView];
@@ -545,6 +555,17 @@ static void shuffleArray(NSMutableArray *array)
     return YES;
 }
 
+-(CGAffineTransform)_transformToHideTutorial:(id <FLWTutorial>)tutorial{
+    CGAffineTransform transform;
+    if(tutorial.position == FLWTutorialPositionTop){
+        transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
+    }
+    else if (tutorial.position == FLWTutorialPositionBottom){
+        transform = CGAffineTransformMakeTranslation(0.0, preferredTutorialHeight);
+    }
+    return transform;
+}
+
 - (void)_finishActiveTutorialWithSuccess:(BOOL)success
 {
     self.activeTutorial.isTransitioningToFinish = YES;
@@ -561,10 +582,11 @@ static void shuffleArray(NSMutableArray *array)
             self.activeTutorial.completionHandler();
         }
     }
-
+    
+    CGAffineTransform transform = [self _transformToHideTutorial:self.activeTutorial];
     void(^nowPerformSlideOutAnimation)(void) = ^{
         [UIView animateWithDuration:self.activeTutorial.slideInAndOutDuration delay:self.activeTutorial.slideOutDelay usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:kNilOptions animations:^{
-            self.overlayView.transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
+            self.overlayView.transform = transform;
         } completion:^(BOOL finished) {
             [self.overlayView removeFromSuperview];
             self.overlayView = nil;
