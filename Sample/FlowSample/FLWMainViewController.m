@@ -192,7 +192,6 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
         tutorial.title = @"To complete this tutorial, tap the second button";
         tutorial.successMessage = @"Congratulations, you can now start all over again";
         tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial, FLWMainViewControllerSecondTutorial ];
-        tutorial.position = FLWTutorialPositionBottom;
         tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
     }];
 
@@ -220,7 +219,6 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
         tutorial.title = @"Welcome to the Flow playground. To begin, tap the first button";
         tutorial.successMessage = @"Great";
         tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
-        tutorial.position = FLWTutorialPositionBottom;
     }];
 }
 
