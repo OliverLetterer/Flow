@@ -192,7 +192,6 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
         tutorial.title = @"To complete this tutorial, tap the second button";
         tutorial.successMessage = @"Congratulations, you can now start all over again";
         tutorial.dependentTutorialIdentifiers = @[ FLWMainViewControllerFirstTutorial, FLWMainViewControllerSecondTutorial ];
-
         tutorial.gesture = [[FLWTapGesture alloc] initWithTouchPoint:CGPointMake(CGRectGetMidX(buttonView.bounds), CGRectGetMidY(buttonView.bounds)) inView:buttonView];
     }];
 
@@ -206,6 +205,7 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
         tutorial.gesture = [[FLWSwipeGesture alloc] initWithSwipeFromPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.8, CGRectGetMidY(strongSelf.view.bounds))
                                                                    toPoint:CGPointMake(CGRectGetWidth(strongSelf.view.bounds) * 0.2, CGRectGetMidY(strongSelf.view.bounds))
                                                                     inView:strongSelf.view];
+        tutorial.position = FLWTutorialPositionTop;
     }];
 
     [[FLWTutorialController sharedInstance] scheduleTutorialWithIdentifier:FLWMainViewControllerFirstTutorial afterDelay:2.0 withPredicate:^BOOL{
