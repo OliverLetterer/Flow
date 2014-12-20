@@ -51,10 +51,10 @@ extern NSString * const FLWTutorialControllerTutorialKey;
 /**
  Decides if the tutorial view should show from the top or bottom of the screen
  */
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, FLWTutorialPosition) {
     FLWTutorialPositionTop = 0,
-    FLWTutorialPositionBottom = 1
-} FLWTutorialPosition;
+    FLWTutorialPositionBottom,
+};
 
 /**
  Will plan one of many random success messages when assigned to FLWTutorial.successMessage.

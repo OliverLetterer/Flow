@@ -520,16 +520,8 @@ static void shuffleArray(NSMutableArray *array)
     [self.activeTutorial speakText:self.activeTutorial.title];
 
     UIView *containerView = self.window.rootViewController.view;
-    static CGFloat additionalHeight = 50.0;
-
-    CGRect frame;
     CGAffineTransform transform = [self _transformToHideTutorial:tutorial];
-    if(tutorial.position == FLWTutorialPositionTop){
-        frame = CGRectMake(0.0, -additionalHeight, CGRectGetWidth(containerView.bounds), preferredTutorialHeight + additionalHeight);
-    }
-    else if (tutorial.position == FLWTutorialPositionBottom){
-        frame = CGRectMake(0.0, containerView.frame.size.height - preferredTutorialHeight, CGRectGetWidth(containerView.bounds), preferredTutorialHeight);
-    }
+    CGRect frame = [self _frameForTutorial:tutorial];
     
     self.overlayView = [[_FLWTutorialOverlayView alloc] initWithFrame:frame];
     self.overlayView.delegate = self;
@@ -555,15 +547,31 @@ static void shuffleArray(NSMutableArray *array)
     return YES;
 }
 
--(CGAffineTransform)_transformToHideTutorial:(id <FLWTutorial>)tutorial{
-    CGAffineTransform transform;
-    if(tutorial.position == FLWTutorialPositionTop){
-        transform = CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
+- (CGRect)_frameForTutorial:(id<FLWTutorial>)tutorial
+{
+    static CGFloat additionalHeight = 50.0;
+    UIView *containerView = self.window.rootViewController.view;
+
+    switch (tutorial.position) {
+        case FLWTutorialPositionTop:
+            return CGRectMake(0.0, -additionalHeight, CGRectGetWidth(containerView.bounds), preferredTutorialHeight + additionalHeight);
+            break;
+        case FLWTutorialPositionBottom:
+            return CGRectMake(0.0, containerView.frame.size.height - preferredTutorialHeight, CGRectGetWidth(containerView.bounds), preferredTutorialHeight);
+            break;
     }
-    else if (tutorial.position == FLWTutorialPositionBottom){
-        transform = CGAffineTransformMakeTranslation(0.0, preferredTutorialHeight);
+}
+
+- (CGAffineTransform)_transformToHideTutorial:(id<FLWTutorial>)tutorial
+{
+    switch (tutorial.position) {
+        case FLWTutorialPositionTop:
+            return CGAffineTransformMakeTranslation(0.0, - preferredTutorialHeight);
+            break;
+        case FLWTutorialPositionBottom:
+            return CGAffineTransformMakeTranslation(0.0, preferredTutorialHeight);
+            break;
     }
-    return transform;
 }
 
 - (void)_finishActiveTutorialWithSuccess:(BOOL)success
