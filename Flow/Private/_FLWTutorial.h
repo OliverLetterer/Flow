@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "FLWTutorialController.h"
+#import <Flow/FLWTutorialController.h>
 
 typedef NS_ENUM(NSInteger, FLWTutorialState) {
     FLWTutorialStateScheduled = 0,

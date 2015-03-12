@@ -7,9 +7,9 @@
 //
 
 #import "FLWMainViewController.h"
-#import "Flow.h"
 #import <AVFoundation/AVFoundation.h>
 #import <objc/runtime.h>
+@import Flow;
 
 
 

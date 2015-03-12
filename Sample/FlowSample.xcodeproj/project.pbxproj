@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		269375577B805EC0C5D040D4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D5A836ADA56609D6D95912 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A722B806190A594E007DF168 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A722B805190A594E007DF168 /* Foundation.framework */; };
 		A722B808190A594E007DF168 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A722B807190A594E007DF168 /* CoreGraphics.framework */; };
 		A722B80A190A594E007DF168 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A722B809190A594E007DF168 /* UIKit.framework */; };
@@ -19,20 +20,8 @@
 		A722B821190A594E007DF168 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A722B809190A594E007DF168 /* UIKit.framework */; };
 		A722B829190A594E007DF168 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A722B827190A594E007DF168 /* InfoPlist.strings */; };
 		A722B82B190A594E007DF168 /* FlowSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B82A190A594E007DF168 /* FlowSampleTests.m */; };
-		A722B864190A59B5007DF168 /* FLWCompoundGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B853190A59B5007DF168 /* FLWCompoundGesture.m */; };
-		A722B865190A59B5007DF168 /* FLWSwipeGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B855190A59B5007DF168 /* FLWSwipeGesture.m */; };
-		A722B866190A59B5007DF168 /* FLWTapGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B857190A59B5007DF168 /* FLWTapGesture.m */; };
-		A722B867190A59B5007DF168 /* FLWTutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B85A190A59B5007DF168 /* FLWTutorialController.m */; };
-		A722B868190A59B5007DF168 /* _FLWTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B85D190A59B5007DF168 /* _FLWTutorial.m */; };
-		A722B869190A59B5007DF168 /* _FLWTutorialOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B85F190A59B5007DF168 /* _FLWTutorialOverlayView.m */; };
-		A722B86A190A59B5007DF168 /* _FLWTutorialTouchIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B861190A59B5007DF168 /* _FLWTutorialTouchIndicatorView.m */; };
-		A722B86B190A59B5007DF168 /* _FLWTutorialWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B863190A59B5007DF168 /* _FLWTutorialWindow.m */; };
 		A722B86E190A59EE007DF168 /* FLWMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B86D190A59EE007DF168 /* FLWMainViewController.m */; };
 		A722B870190A5FE8007DF168 /* Hacks.m in Sources */ = {isa = PBXBuildFile; fileRef = A722B86F190A5FE8007DF168 /* Hacks.m */; };
-		A722B876190A6050007DF168 /* FLWProgressCheckmark.png in Resources */ = {isa = PBXBuildFile; fileRef = A722B872190A6050007DF168 /* FLWProgressCheckmark.png */; };
-		A722B877190A6050007DF168 /* FLWProgressCheckmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A722B873190A6050007DF168 /* FLWProgressCheckmark@2x.png */; };
-		A722B878190A6050007DF168 /* FLWProgressViewClose.png in Resources */ = {isa = PBXBuildFile; fileRef = A722B874190A6050007DF168 /* FLWProgressViewClose.png */; };
-		A722B879190A6050007DF168 /* FLWProgressViewClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A722B875190A6050007DF168 /* FLWProgressViewClose@2x.png */; };
 		A722B87B190A655B007DF168 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A722B87A190A655B007DF168 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49D5A836ADA56609D6D95912 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69F7147AAB3AAD50F920D9B4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		90C4BAC967CD7C6D454F7801 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A722B802190A594E007DF168 /* FlowSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A722B805190A594E007DF168 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A722B807190A594E007DF168 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -63,31 +55,9 @@
 		A722B826190A594E007DF168 /* FlowSampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlowSampleTests-Info.plist"; sourceTree = "<group>"; };
 		A722B828190A594E007DF168 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A722B82A190A594E007DF168 /* FlowSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlowSampleTests.m; sourceTree = "<group>"; };
-		A722B851190A59B5007DF168 /* Flow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flow.h; path = ../Flow/Flow.h; sourceTree = "<group>"; };
-		A722B852190A59B5007DF168 /* FLWCompoundGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLWCompoundGesture.h; path = ../Flow/FLWCompoundGesture.h; sourceTree = "<group>"; };
-		A722B853190A59B5007DF168 /* FLWCompoundGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLWCompoundGesture.m; path = ../Flow/FLWCompoundGesture.m; sourceTree = "<group>"; };
-		A722B854190A59B5007DF168 /* FLWSwipeGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLWSwipeGesture.h; path = ../Flow/FLWSwipeGesture.h; sourceTree = "<group>"; };
-		A722B855190A59B5007DF168 /* FLWSwipeGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLWSwipeGesture.m; path = ../Flow/FLWSwipeGesture.m; sourceTree = "<group>"; };
-		A722B856190A59B5007DF168 /* FLWTapGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLWTapGesture.h; path = ../Flow/FLWTapGesture.h; sourceTree = "<group>"; };
-		A722B857190A59B5007DF168 /* FLWTapGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLWTapGesture.m; path = ../Flow/FLWTapGesture.m; sourceTree = "<group>"; };
-		A722B858190A59B5007DF168 /* FLWTouchGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLWTouchGesture.h; path = ../Flow/FLWTouchGesture.h; sourceTree = "<group>"; };
-		A722B859190A59B5007DF168 /* FLWTutorialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLWTutorialController.h; path = ../Flow/FLWTutorialController.h; sourceTree = "<group>"; };
-		A722B85A190A59B5007DF168 /* FLWTutorialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLWTutorialController.m; path = ../Flow/FLWTutorialController.m; sourceTree = "<group>"; };
-		A722B85C190A59B5007DF168 /* _FLWTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLWTutorial.h; sourceTree = "<group>"; };
-		A722B85D190A59B5007DF168 /* _FLWTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLWTutorial.m; sourceTree = "<group>"; };
-		A722B85E190A59B5007DF168 /* _FLWTutorialOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLWTutorialOverlayView.h; sourceTree = "<group>"; };
-		A722B85F190A59B5007DF168 /* _FLWTutorialOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLWTutorialOverlayView.m; sourceTree = "<group>"; };
-		A722B860190A59B5007DF168 /* _FLWTutorialTouchIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLWTutorialTouchIndicatorView.h; sourceTree = "<group>"; };
-		A722B861190A59B5007DF168 /* _FLWTutorialTouchIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLWTutorialTouchIndicatorView.m; sourceTree = "<group>"; };
-		A722B862190A59B5007DF168 /* _FLWTutorialWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FLWTutorialWindow.h; sourceTree = "<group>"; };
-		A722B863190A59B5007DF168 /* _FLWTutorialWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FLWTutorialWindow.m; sourceTree = "<group>"; };
 		A722B86C190A59EE007DF168 /* FLWMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLWMainViewController.h; sourceTree = "<group>"; };
 		A722B86D190A59EE007DF168 /* FLWMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLWMainViewController.m; sourceTree = "<group>"; };
 		A722B86F190A5FE8007DF168 /* Hacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hacks.m; sourceTree = "<group>"; };
-		A722B872190A6050007DF168 /* FLWProgressCheckmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FLWProgressCheckmark.png; sourceTree = "<group>"; };
-		A722B873190A6050007DF168 /* FLWProgressCheckmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FLWProgressCheckmark@2x.png"; sourceTree = "<group>"; };
-		A722B874190A6050007DF168 /* FLWProgressViewClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FLWProgressViewClose.png; sourceTree = "<group>"; };
-		A722B875190A6050007DF168 /* FLWProgressViewClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FLWProgressViewClose@2x.png"; sourceTree = "<group>"; };
 		A722B87A190A655B007DF168 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -100,6 +70,7 @@
 				A722B808190A594E007DF168 /* CoreGraphics.framework in Frameworks */,
 				A722B80A190A594E007DF168 /* UIKit.framework in Frameworks */,
 				A722B806190A594E007DF168 /* Foundation.framework in Frameworks */,
+				269375577B805EC0C5D040D4 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,14 +87,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E69C955A2952BDF8E05D1D6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				69F7147AAB3AAD50F920D9B4 /* Pods.debug.xcconfig */,
+				90C4BAC967CD7C6D454F7801 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A722B7F9190A594E007DF168 = {
 			isa = PBXGroup;
 			children = (
-				A722B850190A59AF007DF168 /* Flow */,
 				A722B80B190A594E007DF168 /* FlowSample */,
 				A722B824190A594E007DF168 /* FlowSampleTests */,
 				A722B804190A594E007DF168 /* Frameworks */,
 				A722B803190A594E007DF168 /* Products */,
+				7E69C955A2952BDF8E05D1D6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,6 +124,7 @@
 				A722B807190A594E007DF168 /* CoreGraphics.framework */,
 				A722B809190A594E007DF168 /* UIKit.framework */,
 				A722B81E190A594E007DF168 /* XCTest.framework */,
+				49D5A836ADA56609D6D95912 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -191,53 +172,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A722B850190A59AF007DF168 /* Flow */ = {
-			isa = PBXGroup;
-			children = (
-				A722B871190A6050007DF168 /* Resources */,
-				A722B851190A59B5007DF168 /* Flow.h */,
-				A722B852190A59B5007DF168 /* FLWCompoundGesture.h */,
-				A722B853190A59B5007DF168 /* FLWCompoundGesture.m */,
-				A722B854190A59B5007DF168 /* FLWSwipeGesture.h */,
-				A722B855190A59B5007DF168 /* FLWSwipeGesture.m */,
-				A722B856190A59B5007DF168 /* FLWTapGesture.h */,
-				A722B857190A59B5007DF168 /* FLWTapGesture.m */,
-				A722B858190A59B5007DF168 /* FLWTouchGesture.h */,
-				A722B859190A59B5007DF168 /* FLWTutorialController.h */,
-				A722B85A190A59B5007DF168 /* FLWTutorialController.m */,
-				A722B85B190A59B5007DF168 /* Private */,
-			);
-			name = Flow;
-			sourceTree = "<group>";
-		};
-		A722B85B190A59B5007DF168 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				A722B85C190A59B5007DF168 /* _FLWTutorial.h */,
-				A722B85D190A59B5007DF168 /* _FLWTutorial.m */,
-				A722B85E190A59B5007DF168 /* _FLWTutorialOverlayView.h */,
-				A722B85F190A59B5007DF168 /* _FLWTutorialOverlayView.m */,
-				A722B860190A59B5007DF168 /* _FLWTutorialTouchIndicatorView.h */,
-				A722B861190A59B5007DF168 /* _FLWTutorialTouchIndicatorView.m */,
-				A722B862190A59B5007DF168 /* _FLWTutorialWindow.h */,
-				A722B863190A59B5007DF168 /* _FLWTutorialWindow.m */,
-			);
-			name = Private;
-			path = ../Flow/Private;
-			sourceTree = "<group>";
-		};
-		A722B871190A6050007DF168 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A722B872190A6050007DF168 /* FLWProgressCheckmark.png */,
-				A722B873190A6050007DF168 /* FLWProgressCheckmark@2x.png */,
-				A722B874190A6050007DF168 /* FLWProgressViewClose.png */,
-				A722B875190A6050007DF168 /* FLWProgressViewClose@2x.png */,
-			);
-			name = Resources;
-			path = ../Resources;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -245,9 +179,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A722B82E190A594E007DF168 /* Build configuration list for PBXNativeTarget "FlowSample" */;
 			buildPhases = (
+				E65114E5E1B5D7920DC6D305 /* Check Pods Manifest.lock */,
 				A722B7FE190A594E007DF168 /* Sources */,
 				A722B7FF190A594E007DF168 /* Frameworks */,
 				A722B800190A594E007DF168 /* Resources */,
+				7881014CA02135A10D0FF77E /* Embed Pods Frameworks */,
+				2773F6AE86C148B3FAE9C0B6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -315,11 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A722B810190A594E007DF168 /* InfoPlist.strings in Resources */,
-				A722B879190A6050007DF168 /* FLWProgressViewClose@2x.png in Resources */,
-				A722B876190A6050007DF168 /* FLWProgressCheckmark.png in Resources */,
 				A722B818190A594E007DF168 /* Images.xcassets in Resources */,
-				A722B877190A6050007DF168 /* FLWProgressCheckmark@2x.png in Resources */,
-				A722B878190A6050007DF168 /* FLWProgressViewClose.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,19 +266,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2773F6AE86C148B3FAE9C0B6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7881014CA02135A10D0FF77E /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E65114E5E1B5D7920DC6D305 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A722B7FE190A594E007DF168 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A722B868190A59B5007DF168 /* _FLWTutorial.m in Sources */,
-				A722B865190A59B5007DF168 /* FLWSwipeGesture.m in Sources */,
-				A722B86A190A59B5007DF168 /* _FLWTutorialTouchIndicatorView.m in Sources */,
-				A722B867190A59B5007DF168 /* FLWTutorialController.m in Sources */,
-				A722B866190A59B5007DF168 /* FLWTapGesture.m in Sources */,
-				A722B864190A59B5007DF168 /* FLWCompoundGesture.m in Sources */,
-				A722B869190A59B5007DF168 /* _FLWTutorialOverlayView.m in Sources */,
-				A722B86B190A59B5007DF168 /* _FLWTutorialWindow.m in Sources */,
 				A722B870190A5FE8007DF168 /* Hacks.m in Sources */,
 				A722B86E190A59EE007DF168 /* FLWMainViewController.m in Sources */,
 				A722B816190A594E007DF168 /* FLWAppDelegate.m in Sources */,
@@ -423,7 +396,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-Objc",
@@ -460,7 +433,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",
@@ -473,6 +446,7 @@
 		};
 		A722B82F190A594E007DF168 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69F7147AAB3AAD50F920D9B4 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -486,6 +460,7 @@
 		};
 		A722B830190A594E007DF168 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90C4BAC967CD7C6D454F7801 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "FLWTouchGesture.h"
+#import <Flow/FLWTouchGesture.h>
 
 
 

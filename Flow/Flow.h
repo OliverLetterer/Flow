@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import "FLWTouchGesture.h"
+#import <Flow/FLWTouchGesture.h>
 
-#import "FLWTutorialController.h"
-#import "FLWTapGesture.h"
-#import "FLWSwipeGesture.h"
-#import "FLWCompoundGesture.h"
+#import <Flow/FLWTutorialController.h>
+#import <Flow/FLWTapGesture.h>
+#import <Flow/FLWSwipeGesture.h>
+#import <Flow/FLWCompoundGesture.h>

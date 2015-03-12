@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DD546659-7BCF-49AD-850C-3319D1E9C31E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FlowSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7D3D8223F1F50DA77C9973155F4E175653CC0A44</key>
+		<string>github.com:OliverLetterer/Guia.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FlowSample.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7D3D8223F1F50DA77C9973155F4E175653CC0A44</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:OliverLetterer/Guia.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7D3D8223F1F50DA77C9973155F4E175653CC0A44</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7D3D8223F1F50DA77C9973155F4E175653CC0A44</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Flow</string>
+		</dict>
+	</array>
+</dict>
+</plist>

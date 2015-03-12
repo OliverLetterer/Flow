@@ -9,8 +9,9 @@ Pod::Spec.new do |spec|
   spec.homepage     = 'https://github.com/OliverLetterer/Flow'
   spec.summary      = 'Tutorial framework for gesture driven UIs, Facebook Paper style.'
   spec.author       = { 'Oliver Letterer' => 'oliver.letterer@gmail.com' }
-  spec.source_files = 'Flow/*.{h,m}', 'Flow/**/*.{h,m}'
-  spec.resources    = "Resources/*.png"
-
   spec.social_media_url = 'https://twitter.com/oletterer'
+
+  spec.resources    = "Resources/*.png"
+  spec.private_header_files = 'Flow/Private/*.h'
+  spec.source_files = 'Flow/*.{h,m}', 'Flow/**/*.{h,m}'
 end

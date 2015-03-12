@@ -69,12 +69,14 @@ static CGFloat crossFadeThreshold = 0.25;
     if (self.progress <= crossFadeThreshold) {
         [[UIColor colorWithWhite:1.0 alpha:1.0 - self.progress / crossFadeThreshold] setFill];
 
-        UIImage *image = [[UIImage imageNamed:@"FLWProgressViewClose"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage *closeImage = [UIImage imageNamed:@"FLWProgressViewClose" inBundle:[NSBundle bundleForClass:self.class] compatibleWithTraitCollection:nil];
+        UIImage *image = [closeImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [image drawInRect:CGRectMake(centerPoint.x - image.size.width / 2.0,
                                      centerPoint.y - image.size.height / 2.0,
                                      image.size.width, image.size.height)];
     } else if (self.progress >= 1.0) {
-        UIImage *image = [[UIImage imageNamed:@"FLWProgressCheckmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage *checkImage = [UIImage imageNamed:@"FLWProgressCheckmark" inBundle:[NSBundle bundleForClass:self.class] compatibleWithTraitCollection:nil];
+        UIImage *image = [checkImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [image drawInRect:CGRectMake(centerPoint.x - image.size.width / 2.0,
                                      centerPoint.y - image.size.height / 2.0,
                                      image.size.width, image.size.height)];

@@ -24,6 +24,10 @@
 //  THE SOFTWARE.
 //
 
+#import <UIKit/UIKit.h>
+
+
+
 @protocol FLWTouchGesture <NSObject>
 
 @property (nonatomic, assign) CGFloat duration;

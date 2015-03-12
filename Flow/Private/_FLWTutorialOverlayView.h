@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#import <UIKit/UIKit.h>
+
 @class _FLWTutorialOverlayView;
 
 @protocol _FLWTutorialOverlayViewDelegate <NSObject>
