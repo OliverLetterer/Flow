@@ -92,6 +92,12 @@
 
 #pragma mark - Initialization
 
+- (instancetype)init
+{
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
 - (instancetype)initWithGestures:(NSArray *)gestures
 {
     if (self = [super init]) {

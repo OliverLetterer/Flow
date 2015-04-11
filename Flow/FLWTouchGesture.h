@@ -28,6 +28,8 @@
 
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol FLWTouchGesture <NSObject>
 
 @property (nonatomic, assign) CGFloat duration;
@@ -39,3 +41,5 @@
 @property (nonatomic, strong) UIColor *tintColor;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -28,9 +28,10 @@
 
 
 
-/**
- @abstract  <#abstract comment#>
- */
+NS_ASSUME_NONNULL_BEGIN
+
 @interface _FLWTutorialTouchIndicatorView : UIView
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -28,13 +28,15 @@
 
 
 
-/**
- @abstract  <#abstract comment#>
- */
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FLWCompoundGesture : NSObject <FLWTouchGesture>
 
 @property (nonatomic, readonly) NSArray *gestures;
 
-- (instancetype)initWithGestures:(NSArray *)gestures;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithGestures:(NSArray *)gestures NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

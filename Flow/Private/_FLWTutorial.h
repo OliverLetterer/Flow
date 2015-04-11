@@ -26,6 +26,10 @@
 
 #import <Flow/FLWTutorialController.h>
 
+
+
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, FLWTutorialState) {
     FLWTutorialStateScheduled = 0,
     FLWTutorialStateRunning,
@@ -34,9 +38,6 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 
 
 
-/**
- @abstract  <#abstract comment#>
- */
 @interface _FLWTutorial : NSObject <FLWTutorial>
 
 @property (nonatomic, assign) CGFloat progress;
@@ -55,7 +56,7 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 
 @property (nonatomic, copy) NSString *previousAudioSessionCategory;
 
-@property (nonatomic, copy) FLWBlockPredicate predicate;
+@property (nonatomic, nullable, copy) FLWBlockPredicate predicate;
 @property (nonatomic, copy) void(^constructionBlock)(id<FLWTutorial> tutorial);
 
 @property (nonatomic, readonly) BOOL isSpeeking;
@@ -64,3 +65,5 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 - (void)executeBlockAfterCurrentSpeechFinished:(dispatch_block_t)block;
 
 @end
+
+NS_ASSUME_NONNULL_END

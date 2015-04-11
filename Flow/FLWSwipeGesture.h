@@ -28,9 +28,8 @@
 
 
 
-/**
- @abstract  <#abstract comment#>
- */
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FLWSwipeGesture : NSObject <FLWTouchGesture>
 
 @property (nonatomic, readonly) CGPoint startPoint;
@@ -45,3 +44,5 @@
 - (instancetype)initWithSwipeFromPoint:(CGPoint)startPoint toPoint:(CGPoint)endPoint inView:(UIView *)view;
 
 @end
+
+NS_ASSUME_NONNULL_END

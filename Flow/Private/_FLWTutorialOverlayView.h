@@ -28,6 +28,10 @@
 
 @class _FLWTutorialOverlayView;
 
+
+
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol _FLWTutorialOverlayViewDelegate <NSObject>
 
 - (void)tutorialOverlayViewDidCancel:(_FLWTutorialOverlayView *)overlayView;
@@ -46,3 +50,5 @@
 @property (nonatomic, weak) id<_FLWTutorialOverlayViewDelegate> delegate;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -26,6 +26,10 @@
 
 #import <Flow/FLWTouchGesture.h>
 
+
+
+NS_ASSUME_NONNULL_BEGIN
+
 typedef BOOL(^FLWBlockPredicate)(void);
 
 /**
@@ -102,7 +106,7 @@ extern NSString * const FLWTutorialRandomSuccessMessage;
 
  @param delay Is only counted down when predicate evaluates to true
  */
-- (void)scheduleTutorialWithIdentifier:(NSString *)identifier afterDelay:(NSTimeInterval)delay withPredicate:(FLWBlockPredicate)predicate constructionBlock:(void(^)(id<FLWTutorial> tutorial))constructionBlock;
+- (void)scheduleTutorialWithIdentifier:(NSString *)identifier afterDelay:(NSTimeInterval)delay withPredicate:(__nullable FLWBlockPredicate)predicate constructionBlock:(void(^)(id<FLWTutorial> tutorial))constructionBlock;
 
 /**
  Invalides a scheduled tutorial without changing its completion state.
@@ -146,3 +150,5 @@ extern NSString * const FLWTutorialRandomSuccessMessage;
 + (FLWTutorialController *)sharedInstance;
 
 @end
+
+NS_ASSUME_NONNULL_END

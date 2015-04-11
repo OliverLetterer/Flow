@@ -28,9 +28,8 @@
 
 
 
-/**
- @abstract  <#abstract comment#>
- */
+NS_ASSUME_NONNULL_BEGIN
+
 @interface FLWTapGesture : NSObject <FLWTouchGesture>
 
 @property (nonatomic, readonly) CGPoint touchPoint;
@@ -39,3 +38,5 @@
 - (instancetype)initWithTouchPoint:(CGPoint)touchPoint inView:(UIView *)view;
 
 @end
+
+NS_ASSUME_NONNULL_END
