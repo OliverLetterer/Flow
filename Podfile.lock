@@ -1,5 +1,5 @@
 PODS:
-  - Flow (1.6.1)
+  - Flow (1.6.2)
 
 DEPENDENCIES:
   - Flow (from `.`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  Flow: 544b1ba1be2619806268f801eda1d7f70711780c
+  Flow: 4d76357272e7d1e508d4797ed6d168c72eaf13f1
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.37.2

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Sparrowlabs. All rights reserved.
 //
 
-#import "Flow.h"
+#import <Flow/Flow.h>
 #import <objc/runtime.h>
 #import <AVFoundation/AVFoundation.h>
 

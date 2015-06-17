@@ -9,7 +9,7 @@
 #import "FLWMainViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <objc/runtime.h>
-@import Flow;
+#import <Flow/Flow.h>
 
 
 
@@ -116,7 +116,7 @@ static NSString * const FLWMainViewControllerThirdTutorial = @"FLWMainViewContro
     [self _invalidateAllTutorials];
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         return UIInterfaceOrientationMaskAll;

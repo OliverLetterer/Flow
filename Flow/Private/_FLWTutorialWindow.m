@@ -68,7 +68,7 @@ static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSele
     return rootViewController;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
     while (rootViewController.presentedViewController) {
