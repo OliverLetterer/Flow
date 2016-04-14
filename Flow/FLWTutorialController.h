@@ -99,6 +99,7 @@ extern NSString * const FLWTutorialRandomSuccessMessage;
 /**
  @abstract  <#abstract comment#>
  */
+ __attribute__((objc_subclassing_restricted))
 @interface FLWTutorialController : NSObject
 
 /**

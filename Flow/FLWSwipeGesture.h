@@ -30,6 +30,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+__attribute__((objc_subclassing_restricted))
 @interface FLWSwipeGesture : NSObject <FLWTouchGesture>
 
 @property (nonatomic, readonly) CGPoint startPoint;

@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, FLWTutorialState) {
 
 
 
+__attribute__((objc_subclassing_restricted))
 @interface _FLWTutorial : NSObject <FLWTutorial>
 
 @property (nonatomic, assign) CGFloat progress;

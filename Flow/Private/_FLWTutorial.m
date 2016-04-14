@@ -132,13 +132,13 @@
     if (self.speechSynthesisesDisabled || text.length == 0) {
         return;
     }
-    
+
     if (self.speechSynthesizer) {
         [self cancelSpeeking];
     }
 
     AVSpeechUtterance *speechUtterance = [AVSpeechUtterance speechUtteranceWithString:text];
-    speechUtterance.rate = 0.25 * AVSpeechUtteranceDefaultSpeechRate + 0.75 * AVSpeechUtteranceMinimumSpeechRate;
+    speechUtterance.rate = AVSpeechUtteranceDefaultSpeechRate;
 
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     self.speechSynthesizer.delegate = self;

@@ -30,6 +30,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+__attribute__((objc_subclassing_restricted))
 @interface FLWCompoundGesture : NSObject <FLWTouchGesture>
 
 @property (nonatomic, readonly) NSArray *gestures;
