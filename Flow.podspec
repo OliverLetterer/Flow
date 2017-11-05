@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.name         = 'Flow'
-  spec.version      = '1.6.4'
-  spec.platform     = :ios, '7.0'
+  spec.version      = '1.6.5'
+  spec.platform     = :ios, '9.0'
   spec.license      = 'MIT'
   spec.source       = { :git => 'https://github.com/OliverLetterer/Flow.git', :tag => spec.version.to_s }
   spec.frameworks   = 'Foundation', 'UIKit', 'AVFoundation'

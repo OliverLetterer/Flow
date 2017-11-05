@@ -96,7 +96,7 @@ static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSele
 
 #pragma mark - Initialization
 
-- (id)initWithFrame:(CGRect)frame 
+- (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
@@ -106,7 +106,7 @@ static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSele
         self.rootViewController.view.backgroundColor = [UIColor clearColor];
 
         UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-        [self makeKeyAndVisible], [keyWindow makeKeyAndVisible];
+        [self makeKeyAndVisible]; [keyWindow makeKeyAndVisible];
 
         numberOfWindowInstances++;
     }
